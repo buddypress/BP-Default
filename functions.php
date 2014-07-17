@@ -790,4 +790,23 @@ function bp_dtheme_remove_nojs_body_class() {
 }
 add_action( 'bp_before_header', 'bp_dtheme_remove_nojs_body_class' );
 
-?>
+/**
+ * Ensure that multiselect boxes have trailing brackets in their 'id' and 'name' attributes.
+ *
+ * These brackets are required for an array of values to be sent in the POST
+ * request. Previously, bp_get_the_profile_field_input_name() contained the
+ * necessary logic, but since BP 2.0 that logic has been moved into
+ * BP_XProfile_Field_Type_Multiselectbox. Since bp-default does not use the
+ * BP_XProfile_Field_Type classes to build its markup, it did not inherit
+ * the brackets from their new location. Thus this workaround.
+ */
+function bp_dtheme_add_brackets_to_multiselectbox_attributes( $name ) {
+	global $field;
+
+	if ( 'multiselectbox' === $field->type ) {
+		$name .= '[]';
+	}
+
+	return $name;
+}
+add_filter( 'bp_get_the_profile_field_input_name', 'bp_dtheme_add_brackets_to_multiselectbox_attributes' );
