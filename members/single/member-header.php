@@ -1,12 +1,10 @@
 <?php
-
 /**
  * BuddyPress - Users Header
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <?php do_action( 'bp_before_member_header' ); ?>
@@ -41,7 +39,7 @@
 
 				<?php bp_activity_latest_update( bp_displayed_user_id() ); ?>
 
-			</div>
+			</div><!-- #latest-update -->
 
 		<?php endif; ?>
 

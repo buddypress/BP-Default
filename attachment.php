@@ -1,74 +1,90 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying attachments.
+ *
+ * @package BuddyPress
+ * @subpackage BP Default
+ */
 
-	<div id="content">
-		<div class="padder">
+get_header(); ?>
 
-			<?php do_action( 'bp_before_attachment' ); ?>
+		<div id="content">
+			<div class="padder">
 
-			<div class="page" id="attachments-page" role="main">
+				<?php do_action( 'bp_before_attachment' ); ?>
 
-				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+				<div class="page" id="attachments-page" role="main">
 
-					<?php do_action( 'bp_before_blog_post' ); ?>
+					<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+						<?php do_action( 'bp_before_blog_post' ); ?>
 
-						<div class="author-box">
-							<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
-							<p><?php printf( _x( 'by %s', 'Post written by...', 'buddypress' ), str_replace( '<a href=', '<a rel="author" href=', bp_core_get_userlink( $post->post_author ) ) ); ?></p>
-						</div>
+						<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-						<div class="post-content">
-							<h2 class="posttitle"><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Permanent Link to', 'buddypress' ); ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
+							<div class="author-box">
+								<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
 
-							<p class="date">
-								<?php the_date(); ?>
-								<span class="post-utility alignright"><?php edit_post_link( __( 'Edit this entry', 'buddypress' ) ); ?></span>
-							</p>
+								<?php if ( function_exists( 'bp_is_active' ) ) { ?>
+									<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), bp_core_get_userlink( $post->post_author ) ); ?>
+								<?php } else { ?>
+									<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), the_author_posts_link() ); ?>		
+								<?php } ?>
+							</div><!-- .author-box -->
 
-							<div class="entry">
-								<?php echo wp_get_attachment_image( $post->ID, 'large', false, array( 'class' => 'size-large aligncenter' ) ); ?>
+							<div class="post-content">
+								<h2 class="posttitle"><a href="<?php the_permalink(); ?>" rel="bookmark" title="<?php esc_attr_e( 'Permanent Link to', 'bp-default' ); ?> <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h2>
 
-								<div class="entry-caption"><?php if ( !empty( $post->post_excerpt ) ) the_excerpt(); ?></div>
-								<?php the_content(); ?>
-							</div>
+								<p class="date">
+									<?php the_date(); ?>
+									<span class="post-utility alignright"><?php edit_post_link( __( 'Edit this entry', 'bp-default' ) ); ?></span>
+								</p>
 
-							<p class="postmetadata">
-								<?php
-									if ( wp_attachment_is_image() ) :
-										$metadata = wp_get_attachment_metadata();
-										printf( __( 'Full size is %s pixels', 'buddypress' ),
-											sprintf( '<a href="%1$s" title="%2$s">%3$s &times; %4$s</a>',
-												wp_get_attachment_url(),
-												esc_attr( __( 'Link to full size image', 'buddypress' ) ),
-												$metadata['width'],
-												$metadata['height']
-											)
-										);
-									endif;
-								?>
-								&nbsp;
-							</p>
-						</div>
+								<div class="entry">
+									<?php echo wp_get_attachment_image( $post->ID, 'large', false, array( 'class' => 'size-large aligncenter' ) ); ?>
 
-					</div>
+									<div class="entry-caption">
+										<?php if ( !empty( $post->post_excerpt ) ) the_excerpt(); ?>
+									</div><!-- .entry-caption -->
 
-					<?php do_action( 'bp_after_blog_post' ); ?>
+									<?php the_content(); ?>
+								</div><!-- .entry -->
 
-					<?php comments_template(); ?>
+								<p class="postmetadata">
+									<?php
+										if ( wp_attachment_is_image() ) :
+											$metadata = wp_get_attachment_metadata();
+											printf( __( 'Full size is %s pixels', 'bp-default' ),
+												sprintf( '<a href="%1$s" title="%2$s">%3$s &times; %4$s</a>',
+													wp_get_attachment_url(),
+													esc_attr( __( 'Link to full size image', 'bp-default' ) ),
+													$metadata['width'],
+													$metadata['height']
+												)
+											);
+										endif;
+									?>
+									&nbsp;
+								</p>
+							</div><!-- .post-content -->
 
-				<?php endwhile; else: ?>
+						</div><!-- #post-the_ID() -->
 
-					<p><?php _e( 'Sorry, no attachments matched your criteria.', 'buddypress' ); ?></p>
+						<?php do_action( 'bp_after_blog_post' ); ?>
 
-				<?php endif; ?>
+						<?php comments_template(); ?>
 
-			</div>
+					<?php endwhile; else: ?>
 
-		<?php do_action( 'bp_after_attachment' ); ?>
+						<p><?php _e( 'Sorry, no attachments matched your criteria.', 'bp-default' ); ?></p>
 
-		</div><!-- .padder -->
-	</div><!-- #content -->
+					<?php endif; ?>
+
+				</div><!-- .page -->
+
+			<?php do_action( 'bp_after_attachment' ); ?>
+
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
 	<?php get_sidebar(); ?>
 

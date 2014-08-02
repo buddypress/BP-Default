@@ -1,17 +1,17 @@
 <?php
-
 /**
  * BuddyPress - Users Profile
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
+
 		<?php bp_get_options_nav(); ?>
+
 	</ul>
 </div><!-- .item-list-tabs -->
 

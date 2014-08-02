@@ -23,31 +23,13 @@
  * For more information on hooks, actions, and filters, see http://codex.wordpress.org/Plugin_API.
  *
  * @package BuddyPress
- * @subpackage BP-Default
+ * @subpackage BP Default
  * @since BuddyPress (1.2)
  */
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
-
-// If BuddyPress is not activated, switch back to the default WP theme and bail out
-if ( ! function_exists( 'bp_is_active' ) ) {
-	switch_theme( WP_DEFAULT_THEME, WP_DEFAULT_THEME );
-	return;
-}
-
-/**
- * Set the content width based on the theme's design and stylesheet.
- *
- * Used to set the width of images and content. Should be equal to the width the theme
- * is designed for, generally via the style.css stylesheet.
- */
-if ( ! isset( $content_width ) )
-	$content_width = 591;
-
 if ( ! function_exists( 'bp_dtheme_setup' ) ) :
 /**
- * Sets up theme defaults and registers support for various WordPress and BuddyPress features.
+ * Sets up theme defaults and registers support for various WordPress features.
  *
  * Note that this function is hooked into the after_setup_theme hook, which runs
  * before the init hook. The init hook is too late for some features, such as indicating
@@ -56,19 +38,22 @@ if ( ! function_exists( 'bp_dtheme_setup' ) ) :
  * To override bp_dtheme_setup() in a child theme, add your own bp_dtheme_setup to your child theme's
  * functions.php file.
  *
- * @global BuddyPress $bp The one true BuddyPress instance
  * @since BuddyPress (1.5)
  */
 function bp_dtheme_setup() {
 
-	// Load the AJAX functions for the theme
+	// Set the content width based on the theme's design and stylesheet.
+	global $content_width;
+	if( ! isset( $content_width ) ) $content_width = 591;
+
 	require( get_template_directory() . '/_inc/ajax.php' );
+
+	// This theme is available for translation.
+	// Translations can be added to the /languages/ directory.
+	load_theme_textdomain( 'bp-default', get_template_directory() . '/languages' );
 
 	// This theme styles the visual editor with editor-style.css to match the theme style.
 	add_editor_style();
-
-	// This theme comes with all the BuddyPress goodies
-	add_theme_support( 'buddypress' );
 
 	// This theme uses post thumbnails
 	add_theme_support( 'post-thumbnails' );
@@ -82,7 +67,7 @@ function bp_dtheme_setup() {
 
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
-		'primary' => __( 'Primary Navigation', 'buddypress' ),
+		'primary' => __( 'Primary Navigation', 'bp-default' ),
 	) );
 
 	// This theme allows users to set a custom background
@@ -112,30 +97,34 @@ function bp_dtheme_setup() {
 		add_theme_support( 'custom-header', $custom_header_args );
 	}
 
-	if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
-		// Register buttons for the relevant component templates
-		// Friends button
-		if ( bp_is_active( 'friends' ) )
-			add_action( 'bp_member_header_actions',    'bp_add_friend_button',           5 );
+	// If BuddyPress is active, we need to load the AJAX functions for the theme
+	if ( function_exists( 'bp_is_active' ) ) {
 
-		// Activity button
-		if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() )
-			add_action( 'bp_member_header_actions',    'bp_send_public_message_button',  20 );
+		if ( ! is_admin() || ( defined( 'DOING_AJAX' ) && DOING_AJAX ) ) {
+			// Register buttons for the relevant component templates
+			// Friends button
+			if ( bp_is_active( 'friends' ) )
+				add_action( 'bp_member_header_actions',    'bp_add_friend_button',           5 );
 
-		// Messages button
-		if ( bp_is_active( 'messages' ) )
-			add_action( 'bp_member_header_actions',    'bp_send_private_message_button', 20 );
+			// Activity button
+			if ( bp_is_active( 'activity' ) && bp_activity_do_mentions() )
+				add_action( 'bp_member_header_actions',    'bp_send_public_message_button',  20 );
 
-		// Group buttons
-		if ( bp_is_active( 'groups' ) ) {
-			add_action( 'bp_group_header_actions',     'bp_group_join_button',           5 );
-			add_action( 'bp_group_header_actions',     'bp_group_new_topic_button',      20 );
-			add_action( 'bp_directory_groups_actions', 'bp_group_join_button' );
+			// Messages button
+			if ( bp_is_active( 'messages' ) )
+				add_action( 'bp_member_header_actions',    'bp_send_private_message_button', 20 );
+
+			// Group buttons
+			if ( bp_is_active( 'groups' ) ) {
+				add_action( 'bp_group_header_actions',     'bp_group_join_button',           5 );
+				add_action( 'bp_group_header_actions',     'bp_group_new_topic_button',      20 );
+				add_action( 'bp_directory_groups_actions', 'bp_group_join_button' );
+			}
+
+			// Blog button
+			if ( bp_is_active( 'blogs' ) )
+				add_action( 'bp_directory_blogs_actions',  'bp_blogs_visit_blog_button' );
 		}
-
-		// Blog button
-		if ( bp_is_active( 'blogs' ) )
-			add_action( 'bp_directory_blogs_actions',  'bp_blogs_visit_blog_button' );
 	}
 }
 add_action( 'after_setup_theme', 'bp_dtheme_setup' );
@@ -148,34 +137,38 @@ if ( !function_exists( 'bp_dtheme_enqueue_scripts' ) ) :
  * @see http://codex.wordpress.org/Function_Reference/wp_enqueue_script
  * @since BuddyPress (1.5)
  */
-function bp_dtheme_enqueue_scripts() {
+function bp_dtheme_enqueue_scripts() { 
 
-	// Enqueue the global JS - Ajax will not work without it
-	wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery' ), bp_get_version() );
+	if ( function_exists('bp_is_active') ) {
 
-	// Add words that we need to use in JS to the end of the page so they can be translated and still used.
-	$params = array(
-		'my_favs'           => __( 'My Favorites', 'buddypress' ),
-		'accepted'          => __( 'Accepted', 'buddypress' ),
-		'rejected'          => __( 'Rejected', 'buddypress' ),
-		'show_all_comments' => __( 'Show all comments for this thread', 'buddypress' ),
-		'show_x_comments'   => __( 'Show all %d comments', 'buddypress' ),
-		'show_all'          => __( 'Show all', 'buddypress' ),
-		'comments'          => __( 'comments', 'buddypress' ),
-		'close'             => __( 'Close', 'buddypress' ),
-		'view'              => __( 'View', 'buddypress' ),
-		'mark_as_fav'	    => __( 'Favorite', 'buddypress' ),
-		'remove_fav'	    => __( 'Remove Favorite', 'buddypress' ),
-		'unsaved_changes'   => __( 'Your profile has unsaved changes. If you leave the page, the changes will be lost.', 'buddypress' ),
-	);
-	wp_localize_script( 'dtheme-ajax-js', 'BP_DTheme', $params );
+		// Enqueue the global JS - BuddyPress Ajax will not work without it
+		wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery' ), 20140730 );
 
-	// Maybe enqueue comment reply JS
-	if ( is_singular() && bp_is_blog_page() && get_option( 'thread_comments' ) )
+		// Add words that we need to use in JS to the end of the page so they can be translated and still used.
+		$params = array(
+			'my_favs'			=> __( 'My Favorites', 'bp-default' ),
+			'accepted'			=> __( 'Accepted', 'bp-default' ),
+			'rejected'			=> __( 'Rejected', 'bp-default' ),
+			'show_all_comments'	=> __( 'Show all comments for this thread', 'bp-default' ),
+			'show_x_comments'	=> __( 'Show all %d comments', 'bp-default' ),
+			'show_all'			=> __( 'Show all', 'bp-default' ),
+			'comments'			=> __( 'comments', 'bp-default' ),
+			'close'				=> __( 'Close', 'bp-default' ),
+			'view'				=> __( 'View', 'bp-default' ),
+			'mark_as_fav'		=> __( 'Favorite', 'bp-default' ),
+			'remove_fav'		=> __( 'Remove Favorite', 'bp-default' ),
+			'unsaved_changes'	=> __( 'Your profile has unsaved changes. If you leave the page, the changes will be lost.', 'bp-default' ),
+		);
+		wp_localize_script( 'dtheme-ajax-js', 'bp-default', $params );
+	}
+
+	// Enqueue comment reply JS
+	if ( is_singular() && get_option( 'thread_comments' ) )
 		wp_enqueue_script( 'comment-reply' );
 }
 add_action( 'wp_enqueue_scripts', 'bp_dtheme_enqueue_scripts' );
 endif;
+
 
 if ( !function_exists( 'bp_dtheme_enqueue_styles' ) ) :
 /**
@@ -196,11 +189,11 @@ if ( !function_exists( 'bp_dtheme_enqueue_styles' ) ) :
 function bp_dtheme_enqueue_styles() {
 
 	// Register our main stylesheet
-	wp_register_style( 'bp-default-main', get_template_directory_uri() . '/_inc/css/default.css', array(), bp_get_version() );
+	wp_register_style( 'bp-default-main', get_template_directory_uri() . '/_inc/css/default.css', array(), 20140730 );
 
 	// If the current theme is a child of bp-default, enqueue its stylesheet
 	if ( is_child_theme() && 'bp-default' == get_template() ) {
-		wp_enqueue_style( get_stylesheet(), get_stylesheet_uri(), array( 'bp-default-main' ), bp_get_version() );
+		wp_enqueue_style( get_stylesheet(), get_stylesheet_uri(), array( 'bp-default-main' ), 20140730 );
 	}
 
 	// Enqueue the main stylesheet
@@ -208,14 +201,14 @@ function bp_dtheme_enqueue_styles() {
 
 	// Default CSS RTL
 	if ( is_rtl() )
-		wp_enqueue_style( 'bp-default-main-rtl',  get_template_directory_uri() . '/_inc/css/default-rtl.css', array( 'bp-default-main' ), bp_get_version() );
+		wp_enqueue_style( 'bp-default-main-rtl',  get_template_directory_uri() . '/_inc/css/default-rtl.css', array( 'bp-default-main' ), 20140730 );
 
 	// Responsive layout
 	if ( current_theme_supports( 'bp-default-responsive' ) ) {
-		wp_enqueue_style( 'bp-default-responsive', get_template_directory_uri() . '/_inc/css/responsive.css', array( 'bp-default-main' ), bp_get_version() );
+		wp_enqueue_style( 'bp-default-responsive', get_template_directory_uri() . '/_inc/css/responsive.css', array( 'bp-default-main' ), 20140730 );
 
 		if ( is_rtl() ) {
-			wp_enqueue_style( 'bp-default-responsive-rtl', get_template_directory_uri() . '/_inc/css/responsive-rtl.css', array( 'bp-default-responsive' ), bp_get_version() );
+			wp_enqueue_style( 'bp-default-responsive-rtl', get_template_directory_uri() . '/_inc/css/responsive-rtl.css', array( 'bp-default-responsive' ), 20140730 );
 		}
 	}
 }
@@ -386,57 +379,57 @@ function bp_dtheme_widgets_init() {
 
 	// Area 1, located in the sidebar. Empty by default.
 	register_sidebar( array(
-		'name'          => 'Sidebar',
-		'id'            => 'sidebar-1',
-		'description'   => __( 'The sidebar widget area', 'buddypress' ),
-		'before_widget' => '<div id="%1$s" class="widget %2$s">',
-		'after_widget'  => '</div>',
-		'before_title'  => '<h3 class="widgettitle">',
-		'after_title'   => '</h3>'
+		'name'			=> 'Sidebar',
+		'id'			=> 'sidebar-1',
+		'description'	=> __( 'The sidebar widget area', 'bp-default' ),
+		'before_widget'	=> '<div id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</div>',
+		'before_title'	=> '<h3 class="widgettitle">',
+		'after_title'	=> '</h3>'
 	) );
 
 	// Area 2, located in the footer. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'First Footer Widget Area', 'buddypress' ),
-		'id' => 'first-footer-widget-area',
-		'description' => __( 'The first footer widget area', 'buddypress' ),
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widgettitle">',
-		'after_title' => '</h3>',
+		'name'			=> __( 'First Footer Widget Area', 'bp-default' ),
+		'id'			=> 'first-footer-widget-area',
+		'description'	=> __( 'The first footer widget area', 'bp-default' ),
+		'before_widget'	=> '<li id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</li>',
+		'before_title'	=> '<h3 class="widgettitle">',
+		'after_title'	=> '</h3>',
 	) );
 
 	// Area 3, located in the footer. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Second Footer Widget Area', 'buddypress' ),
-		'id' => 'second-footer-widget-area',
-		'description' => __( 'The second footer widget area', 'buddypress' ),
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widgettitle">',
-		'after_title' => '</h3>',
+		'name'			=> __( 'Second Footer Widget Area', 'bp-default' ),
+		'id'			=> 'second-footer-widget-area',
+		'description'	=> __( 'The second footer widget area', 'bp-default' ),
+		'before_widget'	=> '<li id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</li>',
+		'before_title'	=> '<h3 class="widgettitle">',
+		'after_title' 	=> '</h3>',
 	) );
 
 	// Area 4, located in the footer. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Third Footer Widget Area', 'buddypress' ),
-		'id' => 'third-footer-widget-area',
-		'description' => __( 'The third footer widget area', 'buddypress' ),
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widgettitle">',
-		'after_title' => '</h3>',
+		'name'			=> __( 'Third Footer Widget Area', 'bp-default' ),
+		'id'			=> 'third-footer-widget-area',
+		'description' 	=> __( 'The third footer widget area', 'bp-default' ),
+		'before_widget'	=> '<li id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</li>',
+		'before_title'	=> '<h3 class="widgettitle">',
+		'after_title'	=> '</h3>',
 	) );
 
 	// Area 5, located in the footer. Empty by default.
 	register_sidebar( array(
-		'name' => __( 'Fourth Footer Widget Area', 'buddypress' ),
-		'id' => 'fourth-footer-widget-area',
-		'description' => __( 'The fourth footer widget area', 'buddypress' ),
-		'before_widget' => '<li id="%1$s" class="widget %2$s">',
-		'after_widget' => '</li>',
-		'before_title' => '<h3 class="widgettitle">',
-		'after_title' => '</h3>',
+		'name'			=> __( 'Fourth Footer Widget Area', 'bp-default' ),
+		'id'			=> 'fourth-footer-widget-area',
+		'description'	=> __( 'The fourth footer widget area', 'bp-default' ),
+		'before_widget'	=> '<li id="%1$s" class="widget %2$s">',
+		'after_widget'	=> '</li>',
+		'before_title'	=> '<h3 class="widgettitle">',
+		'after_title'	=> '</h3>',
 	) );
 }
 add_action( 'widgets_init', 'bp_dtheme_widgets_init' );
@@ -473,8 +466,10 @@ function bp_dtheme_blog_comments( $comment, $args, $depth ) {
 		<div class="comment-avatar-box">
 			<div class="avb">
 				<a href="<?php echo get_comment_author_url(); ?>" rel="nofollow">
-					<?php if ( $comment->user_id ) : ?>
-						<?php echo bp_core_fetch_avatar( array( 'item_id' => $comment->user_id, 'width' => $avatar_size, 'height' => $avatar_size, 'email' => $comment->comment_author_email ) ); ?>
+					<?php if ( function_exists( 'bp_is_active' ) ) : ?>
+						<?php if ( $comment->user_id ) : ?>
+							<?php echo bp_core_fetch_avatar( array( 'item_id' => $comment->user_id, 'width' => $avatar_size, 'height' => $avatar_size, 'email' => $comment->comment_author_email ) ); ?>
+						<?php endif; ?>
 					<?php else : ?>
 						<?php echo get_avatar( $comment, $avatar_size ); ?>
 					<?php endif; ?>
@@ -487,14 +482,14 @@ function bp_dtheme_blog_comments( $comment, $args, $depth ) {
 				<p>
 					<?php
 						/* translators: 1: comment author url, 2: comment author name, 3: comment permalink, 4: comment date/timestamp*/
-						printf( __( '<a href="%1$s" rel="nofollow">%2$s</a> said on <a href="%3$s"><span class="time-since">%4$s</span></a>', 'buddypress' ), get_comment_author_url(), get_comment_author(), get_comment_link(), get_comment_date() );
+						printf( __( '<a href="%1$s" rel="nofollow">%2$s</a> said on <a href="%3$s"><span class="time-since">%4$s</span></a>', 'bp-default' ), get_comment_author_url(), get_comment_author(), get_comment_link(), get_comment_date() );
 					?>
 				</p>
 			</div>
 
 			<div class="comment-entry">
 				<?php if ( $comment->comment_approved == '0' ) : ?>
-				 	<em class="moderate"><?php _e( 'Your comment is awaiting moderation.', 'buddypress' ); ?></em>
+				 	<em class="moderate"><?php _e( 'Your comment is awaiting moderation.', 'bp-default' ); ?></em>
 				<?php endif; ?>
 
 				<?php comment_text(); ?>
@@ -506,9 +501,8 @@ function bp_dtheme_blog_comments( $comment, $args, $depth ) {
 					<?php endif; ?>
 
 					<?php if ( current_user_can( 'edit_comment', $comment->comment_ID ) ) : ?>
-						<?php printf( '<a class="button comment-edit-link bp-secondary-action" href="%1$s" title="%2$s">%3$s</a> ', get_edit_comment_link( $comment->comment_ID ), esc_attr__( 'Edit comment', 'buddypress' ), __( 'Edit', 'buddypress' ) ); ?>
+						<?php printf( '<a class="button comment-edit-link bp-secondary-action" href="%1$s" title="%2$s">%3$s</a> ', get_edit_comment_link( $comment->comment_ID ), esc_attr__( 'Edit comment', 'bp-default' ), __( 'Edit', 'bp-default' ) ); ?>
 					<?php endif; ?>
-
 			</div>
 
 		</div>
@@ -543,19 +537,20 @@ if ( !function_exists( 'bp_dtheme_activity_secondary_avatars' ) ) :
  * @since BuddyPress (1.2.6)
  */
 function bp_dtheme_activity_secondary_avatars( $action, $activity ) {
-	switch ( $activity->component ) {
-		case 'groups' :
-		case 'friends' :
-			// Only insert avatar if one exists
-			if ( $secondary_avatar = bp_get_activity_secondary_avatar() ) {
-				$reverse_content = strrev( $action );
-				$position        = strpos( $reverse_content, 'a<' );
-				$action          = substr_replace( $action, $secondary_avatar, -$position - 2, 0 );
-			}
-			break;
+	if ( function_exists( 'bp_is_active' ) ) { 
+		switch ( $activity->component ) {
+			case 'groups' :
+			case 'friends' :
+				// Only insert avatar if one exists
+				if ( $secondary_avatar = bp_get_activity_secondary_avatar() ) {
+					$reverse_content = strrev( $action );
+					$position        = strpos( $reverse_content, 'a<' );
+					$action          = substr_replace( $action, $secondary_avatar, -$position - 2, 0 );
+				}
+				break;
+		}
+		return $action;
 	}
-
-	return $action;
 }
 add_filter( 'bp_get_activity_action_pre_meta', 'bp_dtheme_activity_secondary_avatars', 10, 2 );
 endif;
@@ -572,11 +567,10 @@ function bp_dtheme_show_notice() {
 	// Bail if bp-default theme was not just activated
 	if ( empty( $_GET['activated'] ) || ( 'themes.php' != $pagenow ) || !is_admin() )
 		return;
-
 	?>
 
 	<div id="message" class="updated fade">
-		<p><?php printf( __( 'Theme activated! This theme contains <a href="%s">custom header image</a> support and <a href="%s">sidebar widgets</a>.', 'buddypress' ), admin_url( 'themes.php?page=custom-header' ), admin_url( 'widgets.php' ) ); ?></p>
+		<p><?php printf( __( 'Theme activated! This theme contains <a href="%s">custom header image</a> support and <a href="%s">sidebar widgets</a>.', 'bp-default' ), admin_url( 'themes.php?page=custom-header' ), admin_url( 'widgets.php' ) ); ?></p>
 	</div>
 
 	<style type="text/css">#message2, #message0 { display: none; }</style>
@@ -598,10 +592,10 @@ if ( !function_exists( 'bp_dtheme_main_nav' ) ) :
  */
 function bp_dtheme_main_nav( $args ) {
 	$pages_args = array(
-		'depth'      => 0,
-		'echo'       => false,
-		'exclude'    => '',
-		'title_li'   => ''
+		'depth'		=> 0,
+		'echo'		=> false,
+		'exclude'	=> '',
+		'title_li'	=> ''
 	);
 	$menu = wp_page_menu( $pages_args );
 	$menu = str_replace( array( '<div class="menu"><ul>', '</ul></div>' ), array( '<ul id="nav">', '</ul><!-- #nav -->' ), $menu );
@@ -636,24 +630,24 @@ if ( !function_exists( 'bp_dtheme_comment_form' ) ) :
  */
 function bp_dtheme_comment_form( $default_labels ) {
 
-	$commenter = wp_get_current_commenter();
-	$req       = get_option( 'require_name_email' );
-	$aria_req  = ( $req ? " aria-required='true'" : '' );
-	$fields    =  array(
-		'author' => '<p class="comment-form-author">' . '<label for="author">' . __( 'Name', 'buddypress' ) . ( $req ? '<span class="required"> *</span>' : '' ) . '</label> ' .
-		            '<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' /></p>',
-		'email'  => '<p class="comment-form-email"><label for="email">' . __( 'Email', 'buddypress' ) . ( $req ? '<span class="required"> *</span>' : '' ) . '</label> ' .
-		            '<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' /></p>',
-		'url'    => '<p class="comment-form-url"><label for="url">' . __( 'Website', 'buddypress' ) . '</label>' .
-		            '<input id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" /></p>',
+	$commenter	= wp_get_current_commenter();
+	$req		= get_option( 'require_name_email' );
+	$aria_req	= ( $req ? " aria-required='true'" : '' );
+	$fields		= array(
+		'author' =>	'<p class="comment-form-author">' . '<label for="author">' . __( 'Name', 'bp-default' ) . ( $req ? '<span class="required"> *</span>' : '' ) . '</label> ' .
+					'<input id="author" name="author" type="text" value="' . esc_attr( $commenter['comment_author'] ) . '" size="30"' . $aria_req . ' /></p>',
+		'email'	=>	'<p class="comment-form-email"><label for="email">' . __( 'Email', 'bp-default' ) . ( $req ? '<span class="required"> *</span>' : '' ) . '</label> ' .
+					'<input id="email" name="email" type="text" value="' . esc_attr(  $commenter['comment_author_email'] ) . '" size="30"' . $aria_req . ' /></p>',
+		'url'	=>	'<p class="comment-form-url"><label for="url">' . __( 'Website', 'bp-default' ) . '</label>' .
+					'<input id="url" name="url" type="text" value="' . esc_attr( $commenter['comment_author_url'] ) . '" size="30" /></p>',
 	);
 
 	$new_labels = array(
-		'comment_field'  => '<p class="form-textarea"><textarea name="comment" id="comment" cols="60" rows="10" aria-required="true"></textarea></p>',
-		'fields'         => apply_filters( 'comment_form_default_fields', $fields ),
-		'logged_in_as'   => '',
-		'must_log_in'    => '<p class="alert">' . sprintf( __( 'You must be <a href="%1$s">logged in</a> to post a comment.', 'buddypress' ), wp_login_url( get_permalink() ) )	. '</p>',
-		'title_reply'    => __( 'Leave a reply', 'buddypress' )
+		'comment_field'	=> '<p class="form-textarea"><textarea name="comment" id="comment" cols="60" rows="10" aria-required="true"></textarea></p>',
+		'fields'		=> apply_filters( 'comment_form_default_fields', $fields ),
+		'logged_in_as'	=> '',
+		'must_log_in'	=> '<p class="alert">' . sprintf( __( 'You must be <a href="%1$s">logged in</a> to post a comment.', 'bp-default' ), wp_login_url( get_permalink() ) )	. '</p>',
+		'title_reply'	=> __( 'Leave a reply', 'bp-default' )
 	);
 
 	return apply_filters( 'bp_dtheme_comment_form', array_merge( $default_labels, $new_labels ) );
@@ -675,10 +669,12 @@ function bp_dtheme_before_comment_form() {
 ?>
 	<div class="comment-avatar-box">
 		<div class="avb">
-			<?php if ( bp_loggedin_user_id() ) : ?>
-				<a href="<?php echo bp_loggedin_user_domain(); ?>">
-					<?php echo get_avatar( bp_loggedin_user_id(), 50 ); ?>
-				</a>
+			<?php if ( function_exists( 'bp_is_active' ) ) : ?>
+				<?php if( bp_loggedin_user_id() ) : ?>
+					<a href="<?php echo bp_loggedin_user_domain(); ?>">
+						<?php echo get_avatar( bp_loggedin_user_id(), 50 ); ?>
+					</a>
+				<?php endif; ?>
 			<?php else : ?>
 				<?php echo get_avatar( 0, 50 ); ?>
 			<?php endif; ?>
@@ -701,9 +697,7 @@ if ( !function_exists( 'bp_dtheme_after_comment_form' ) ) :
  */
 function bp_dtheme_after_comment_form() {
 ?>
-
 	</div><!-- .comment-content standard-form -->
-
 <?php
 }
 add_action( 'comment_form', 'bp_dtheme_after_comment_form' );
@@ -740,8 +734,8 @@ function bp_dtheme_content_nav( $nav_id ) {
 	if ( !empty( $wp_query->max_num_pages ) && $wp_query->max_num_pages > 1 ) : ?>
 
 		<div id="<?php echo $nav_id; ?>" class="navigation">
-			<div class="alignleft"><?php next_posts_link( __( '&larr; Previous Entries', 'buddypress' ) ); ?></div>
-			<div class="alignright"><?php previous_posts_link( __( 'Next Entries &rarr;', 'buddypress' ) ); ?></div>
+			<div class="alignleft"><?php next_posts_link( __( '&larr; Previous Entries', 'bp-default' ) ); ?></div>
+			<div class="alignright"><?php previous_posts_link( __( 'Next Entries &rarr;', 'bp-default' ) ); ?></div>
 		</div><!-- #<?php echo $nav_id; ?> -->
 
 	<?php endif;
@@ -784,29 +778,13 @@ add_filter( 'bp_get_the_body_class', 'bp_dtheme_add_nojs_body_class' );
  */
 function bp_dtheme_remove_nojs_body_class() {
 ?><script type="text/javascript">//<![CDATA[
-(function(){var c=document.body.className;c=c.replace(/no-js/,'js');document.body.className=c;})();
-//]]></script>
+	(function(){var c=document.body.className;c=c.replace(/no-js/,'js');document.body.className=c;})();
+	//]]></script>
 <?php
 }
 add_action( 'bp_before_header', 'bp_dtheme_remove_nojs_body_class' );
 
 /**
- * Ensure that multiselect boxes have trailing brackets in their 'id' and 'name' attributes.
- *
- * These brackets are required for an array of values to be sent in the POST
- * request. Previously, bp_get_the_profile_field_input_name() contained the
- * necessary logic, but since BP 2.0 that logic has been moved into
- * BP_XProfile_Field_Type_Multiselectbox. Since bp-default does not use the
- * BP_XProfile_Field_Type classes to build its markup, it did not inherit
- * the brackets from their new location. Thus this workaround.
- */
-function bp_dtheme_add_brackets_to_multiselectbox_attributes( $name ) {
-	global $field;
-
-	if ( 'multiselectbox' === $field->type ) {
-		$name .= '[]';
-	}
-
-	return $name;
-}
-add_filter( 'bp_get_the_profile_field_input_name', 'bp_dtheme_add_brackets_to_multiselectbox_attributes' );
+* Template Tags
+*/
+require get_template_directory() . '/_inc/template-tags.php';

@@ -1,39 +1,52 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The template for displaying all pages
+ *
+ * This is the template that displays all pages by default.
+ * Please note that this is the WordPress construct of pages
+ * and that other 'pages' on your WordPress site will use a
+ * different template.
+ *
+ * @package BuddyPress
+ * @subpackage BP_Default
+ */
 
-	<div id="content">
-		<div class="padder">
+get_header(); ?>
 
-		<?php do_action( 'bp_before_blog_page' ); ?>
+		<div id="content">
+			<div class="padder">
 
-		<div class="page" id="blog-page" role="main">
+			<?php do_action( 'bp_before_blog_page' ); ?>
 
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+			<div class="page" id="blog-page" role="main">
 
-				<h2 class="pagetitle"><?php the_title(); ?></h2>
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<h2 class="pagetitle"><?php the_title(); ?></h2>
 
-					<div class="entry">
+					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-						<?php the_content( __( '<p class="serif">Read the rest of this page &rarr;</p>', 'buddypress' ) ); ?>
+						<div class="entry">
 
-						<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-						<?php edit_post_link( __( 'Edit this page.', 'buddypress' ), '<p class="edit-link">', '</p>'); ?>
+							<?php the_content( __( '<p class="serif">Read the rest of this page &rarr;</p>', 'buddypress' ) ); ?>
 
-					</div>
+							<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
+							<?php edit_post_link( __( 'Edit this page.', 'buddypress' ), '<p class="edit-link">', '</p>'); ?>
 
-				</div>
+						</div><!-- .entry -->
 
-			<?php comments_template(); ?>
+					</div><!-- #post-the_ID() -->
 
-			<?php endwhile; endif; ?>
+				<?php comments_template(); ?>
 
-		</div><!-- .page -->
+				<?php endwhile; endif; ?>
 
-		<?php do_action( 'bp_after_blog_page' ); ?>
+			</div><!-- .page -->
 
-		</div><!-- .padder -->
-	</div><!-- #content -->
+			<?php do_action( 'bp_after_blog_page' ); ?>
+
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
 	<?php get_sidebar(); ?>
 

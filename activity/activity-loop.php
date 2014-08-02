@@ -1,14 +1,12 @@
 <?php
-
 /**
  * BuddyPress - Activity Loop
  *
  * Querystring is set via AJAX in _inc/ajax.php - bp_dtheme_object_filter()
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <?php do_action( 'bp_before_activity_loop' ); ?>
@@ -20,7 +18,7 @@
 		<div class="pagination">
 			<div class="pag-count"><?php bp_activity_pagination_count(); ?></div>
 			<div class="pagination-links"><?php bp_activity_pagination_links(); ?></div>
-		</div>
+		</div><!-- .pagination -->
 	</noscript>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
@@ -38,22 +36,24 @@
 	<?php if ( bp_activity_has_more_items() ) : ?>
 
 		<li class="load-more">
-			<a href="#more"><?php _e( 'Load More', 'buddypress' ); ?></a>
+			<a href="#more"><?php _e( 'Load More', 'bp-default' ); ?></a>
 		</li>
 
 	<?php endif; ?>
 
 	<?php if ( empty( $_POST['page'] ) ) : ?>
 
-		</ul>
+		</ul><!-- .activity-list -->
 
 	<?php endif; ?>
 
 <?php else : ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'buddypress' ); ?></p>
-	</div>
+
+		<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'bp-default' ); ?></p>
+
+	</div><!-- .info -->
 
 <?php endif; ?>
 
@@ -65,6 +65,6 @@
 
 		<?php wp_nonce_field( 'activity_filter', '_wpnonce_activity_filter' ); ?>
 
-	</form>
+	</form><!-- #activity-loop-form -->
 
 <?php endif; ?>

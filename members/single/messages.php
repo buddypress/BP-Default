@@ -1,12 +1,10 @@
 <?php
-
 /**
  * BuddyPress - Users Messages
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">

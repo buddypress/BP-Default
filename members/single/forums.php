@@ -1,25 +1,24 @@
 <?php
-
 /**
  * BuddyPress - Users Forums
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
+
 		<?php bp_get_options_nav(); ?>
 
 		<li id="forums-order-select" class="last filter">
 
-			<label for="forums-order-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
+			<label for="forums-order-by"><?php _e( 'Order By:', 'bp-default' ); ?></label>
 			<select id="forums-order-by">
-				<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-				<option value="popular"><?php _e( 'Most Posts', 'buddypress' ); ?></option>
-				<option value="unreplied"><?php _e( 'Unreplied', 'buddypress' ); ?></option>
+				<option value="active"><?php _e( 'Last Active', 'bp-default' ); ?></option>
+				<option value="popular"><?php _e( 'Most Posts', 'bp-default' ); ?></option>
+				<option value="unreplied"><?php _e( 'Unreplied', 'bp-default' ); ?></option>
 
 				<?php do_action( 'bp_forums_directory_order_options' ); ?>
 
@@ -40,7 +39,7 @@ else :
 
 		<?php locate_template( array( 'forums/forums-loop.php' ), true ); ?>
 
-	</div>
+	</div><!-- .forums -->
 
 	<?php do_action( 'bp_after_member_forums_content' ); ?>
 

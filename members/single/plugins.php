@@ -1,5 +1,4 @@
 <?php
-
 /**
  * BuddyPress - Users Plugins
  *
@@ -8,62 +7,61 @@
  * to output everything your plugin needs.
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
+ 
+get_header( 'buddypress' ); ?>
 
-?>
+		<div id="content">
+			<div class="padder">
 
-<?php get_header( 'buddypress' ); ?>
+				<?php do_action( 'bp_before_member_plugin_template' ); ?>
 
-	<div id="content">
-		<div class="padder">
+				<div id="item-header">
 
-			<?php do_action( 'bp_before_member_plugin_template' ); ?>
+					<?php locate_template( array( 'members/single/member-header.php' ), true ); ?>
 
-			<div id="item-header">
+				</div><!-- #item-header -->
 
-				<?php locate_template( array( 'members/single/member-header.php' ), true ); ?>
+				<div id="item-nav">
+					<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
+						<ul>
 
-			</div><!-- #item-header -->
+							<?php bp_get_displayed_user_nav(); ?>
 
-			<div id="item-nav">
-				<div class="item-list-tabs no-ajax" id="object-nav" role="navigation">
-					<ul>
+							<?php do_action( 'bp_member_options_nav' ); ?>
 
-						<?php bp_get_displayed_user_nav(); ?>
+						</ul>
+					</div><!-- .item-list-tabs -->
+				</div><!-- #item-nav -->
 
-						<?php do_action( 'bp_member_options_nav' ); ?>
+				<div id="item-body" role="main">
 
-					</ul>
-				</div>
-			</div><!-- #item-nav -->
+					<?php do_action( 'bp_before_member_body' ); ?>
 
-			<div id="item-body" role="main">
+					<div class="item-list-tabs no-ajax" id="subnav">
+						<ul>
 
-				<?php do_action( 'bp_before_member_body' ); ?>
+							<?php bp_get_options_nav(); ?>
 
-				<div class="item-list-tabs no-ajax" id="subnav">
-					<ul>
+							<?php do_action( 'bp_member_plugin_options_nav' ); ?>
 
-						<?php bp_get_options_nav(); ?>
+						</ul>
+					</div><!-- .item-list-tabs -->
 
-						<?php do_action( 'bp_member_plugin_options_nav' ); ?>
+					<h3><?php do_action( 'bp_template_title' ); ?></h3>
 
-					</ul>
-				</div><!-- .item-list-tabs -->
+					<?php do_action( 'bp_template_content' ); ?>
 
-				<h3><?php do_action( 'bp_template_title' ); ?></h3>
+					<?php do_action( 'bp_after_member_body' ); ?>
 
-				<?php do_action( 'bp_template_content' ); ?>
+				</div><!-- #item-body -->
 
-				<?php do_action( 'bp_after_member_body' ); ?>
+				<?php do_action( 'bp_after_member_plugin_template' ); ?>
 
-			</div><!-- #item-body -->
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
-			<?php do_action( 'bp_after_member_plugin_template' ); ?>
+	<?php get_sidebar( 'buddypress' ); ?>
 
-		</div><!-- .padder -->
-	</div><!-- #content -->
-
-<?php get_sidebar( 'buddypress' ); ?>
 <?php get_footer( 'buddypress' ); ?>

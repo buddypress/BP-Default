@@ -4,7 +4,7 @@
  * BuddyPress - Users Settings
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
 
 ?>
@@ -17,7 +17,7 @@
 		
 		<?php endif; ?>
 	</ul>
-</div>
+</div><!-- .item-list-tabs -->
 
 <?php
 

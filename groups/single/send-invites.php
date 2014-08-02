@@ -1,3 +1,12 @@
+<?php
+/**
+ * BuddyPress - Group - Send Invites
+ * 
+ * @package BuddyPress
+ * @subpackage BP Default
+ */
+?>
+
 <?php do_action( 'bp_before_group_send_invites_content' ); ?>
 
 <?php if ( bp_get_total_friend_count( bp_loggedin_user_id() ) ) : ?>
@@ -12,7 +21,7 @@
 				</ul>
 
 				<?php wp_nonce_field( 'groups_invite_uninvite_user', '_wpnonce_invite_uninvite_user' ); ?>
-			</div>
+			</div><!-- #invite-list -->
 
 		</div><!-- .left-menu -->
 
@@ -20,12 +29,13 @@
 
 			<div id="message" class="info">
 				<p><?php _e('Select people to invite from your friends list.', 'buddypress'); ?></p>
-			</div>
+			</div><!-- #message -->
 
 			<?php do_action( 'bp_before_group_send_invites_list' ); ?>
 
 			<?php /* The ID 'friend-list' is important for AJAX support. */ ?>
 			<ul id="friend-list" class="item-list">
+
 			<?php if ( bp_group_has_invites() ) : ?>
 
 				<?php while ( bp_group_invites() ) : bp_group_the_invite(); ?>
@@ -42,7 +52,9 @@
 							<a class="button remove" href="<?php bp_group_invite_user_remove_invite_url(); ?>" id="<?php bp_group_invite_item_id(); ?>"><?php _e( 'Remove Invite', 'buddypress' ); ?></a>
 
 							<?php do_action( 'bp_group_send_invites_item_action' ); ?>
-						</div>
+
+						</div><!-- .action -->
+
 					</li>
 
 				<?php endwhile; ?>
@@ -58,7 +70,7 @@
 
 		<div class="submit">
 			<input type="submit" name="submit" id="submit" value="<?php esc_attr_e( 'Send Invites', 'buddypress' ); ?>" />
-		</div>
+		</div><!-- .submit -->
 
 		<?php wp_nonce_field( 'groups_send_invites', '_wpnonce_send_invites'); ?>
 
@@ -71,7 +83,7 @@
 
 	<div id="message" class="info" role="main">
 		<p><?php _e( 'Once you have built up friend connections you will be able to invite others to your group.', 'buddypress' ); ?></p>
-	</div>
+	</div><!-- #message -->
 
 <?php endif; ?>
 

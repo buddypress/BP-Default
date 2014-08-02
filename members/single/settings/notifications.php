@@ -1,10 +1,9 @@
 <?php
-
 /**
- * BuddyPress Notification Settings
+ * BuddyPress - Users Notification Settings
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
 
 get_header( 'buddypress' ); ?>
@@ -46,26 +45,26 @@ get_header( 'buddypress' ); ?>
 					</ul>
 				</div><!-- .item-list-tabs -->
 
-				<h3><?php _e( 'Email Notification', 'buddypress' ); ?></h3>
+				<h3><?php _e( 'Email Notification', 'bp-default' ); ?></h3>
 
 				<?php do_action( 'bp_template_content' ); ?>
 
 				<form action="<?php echo bp_displayed_user_domain() . bp_get_settings_slug() . '/notifications'; ?>" method="post" class="standard-form" id="settings-form">
-					<p><?php _e( 'Send an email notice when:', 'buddypress' ); ?></p>
+					<p><?php _e( 'Send an email notice when:', 'bp-default' ); ?></p>
 
 					<?php do_action( 'bp_notification_settings' ); ?>
 
 					<?php do_action( 'bp_members_notification_settings_before_submit' ); ?>
 
 					<div class="submit">
-						<input type="submit" name="submit" value="<?php esc_attr_e( 'Save Changes', 'buddypress' ); ?>" id="submit" class="auto" />
-					</div>
+						<input type="submit" name="submit" value="<?php esc_attr_e( 'Save Changes', 'bp-default' ); ?>" id="submit" class="auto" />
+					</div><!-- .submit -->
 
 					<?php do_action( 'bp_members_notification_settings_after_submit' ); ?>
 
 					<?php wp_nonce_field('bp_settings_notifications'); ?>
 
-				</form>
+				</form><!-- #settings-form -->
 
 				<?php do_action( 'bp_after_member_body' ); ?>
 

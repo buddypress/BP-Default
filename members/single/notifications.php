@@ -1,23 +1,23 @@
 <?php
-
 /**
  * BuddyPress - Users Notifications
  *
  * @package BuddyPress
- * @subpackage bp-legacy
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
+
 		<?php bp_get_options_nav(); ?>
 
 		<li id="members-order-select" class="last filter">
 			<?php bp_notifications_sort_order_form(); ?>
 		</li>
+
 	</ul>
-</div>
+</div><!-- .item-list-tabs -->
 
 <?php
 switch ( bp_current_action() ) :

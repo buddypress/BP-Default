@@ -1,28 +1,27 @@
 <?php
-
 /**
  * BuddyPress - Users Groups
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
 	<ul>
+
 		<?php if ( bp_is_my_profile() ) bp_get_options_nav(); ?>
 
 		<?php if ( !bp_is_current_action( 'invites' ) ) : ?>
 
 			<li id="groups-order-select" class="last filter">
 
-				<label for="groups-sort-by"><?php _e( 'Order By:', 'buddypress' ); ?></label>
+				<label for="groups-sort-by"><?php _e( 'Order By:', 'bp-default' ); ?></label>
 				<select id="groups-sort-by">
-					<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-					<option value="popular"><?php _e( 'Most Members', 'buddypress' ); ?></option>
-					<option value="newest"><?php _e( 'Newly Created', 'buddypress' ); ?></option>
-					<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
+					<option value="active"><?php _e( 'Last Active', 'bp-default' ); ?></option>
+					<option value="popular"><?php _e( 'Most Members', 'bp-default' ); ?></option>
+					<option value="newest"><?php _e( 'Newly Created', 'bp-default' ); ?></option>
+					<option value="alphabetical"><?php _e( 'Alphabetical', 'bp-default' ); ?></option>
 
 					<?php do_action( 'bp_member_group_order_options' ); ?>
 
@@ -46,7 +45,7 @@ else :
 
 		<?php locate_template( array( 'groups/groups-loop.php' ), true ); ?>
 
-	</div>
+	</div><!-- .groups -->
 
 	<?php do_action( 'bp_after_member_groups_content' ); ?>
 

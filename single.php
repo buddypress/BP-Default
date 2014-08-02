@@ -1,57 +1,70 @@
-<?php get_header(); ?>
+<?php
+/**
+ * The Template for displaying all single posts
+ *
+ * @package BuddyPress
+ * @subpackage BP_Default
+ */
 
-	<div id="content">
-		<div class="padder">
+get_header(); ?>
 
-			<?php do_action( 'bp_before_blog_single_post' ); ?>
+		<div id="content">
+			<div class="padder">
 
-			<div class="page" id="blog-single" role="main">
+				<?php do_action( 'bp_before_blog_single_post' ); ?>
 
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+				<div class="page" id="blog-single" role="main">
 
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-					<div class="author-box">
-						<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
-						<p><?php printf( _x( 'by %s', 'Post written by...', 'buddypress' ), str_replace( '<a href=', '<a rel="author" href=', bp_core_get_userlink( $post->post_author ) ) ); ?></p>
-					</div>
+					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-					<div class="post-content">
-						<h2 class="posttitle"><?php the_title(); ?></h2>
+						<div class="author-box">
+							<?php echo get_avatar( get_the_author_meta( 'user_email' ), '50' ); ?>
 
-						<p class="date">
-							<?php printf( __( '%1$s <span>in %2$s</span>', 'buddypress' ), get_the_date(), get_the_category_list( ', ' ) ); ?>
-							<span class="post-utility alignright"><?php edit_post_link( __( 'Edit this entry', 'buddypress' ) ); ?></span>
-						</p>
+							<?php if ( function_exists( 'bp_is_active' ) ) { ?>
+								<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), bp_core_get_userlink( $post->post_author ) ); ?>
+							<?php } else { ?>
+								<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), the_author_posts_link() ); ?>		
+							<?php } ?>
+						</div><!-- .author-box -->
 
-						<div class="entry">
-							<?php the_content( __( 'Read the rest of this entry &rarr;', 'buddypress' ) ); ?>
+						<div class="post-content">
+							<h2 class="posttitle"><?php the_title(); ?></h2>
 
-							<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-						</div>
+							<p class="date">
+								<?php printf( __( '%1$s <span>in %2$s</span>', 'bp-default' ), get_the_date(), get_the_category_list( ', ' ) ); ?>
+								<span class="post-utility alignright"><?php edit_post_link( __( 'Edit this entry', 'bp-default' ) ); ?></span>
+							</p>
 
-						<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'buddypress' ), ', ', '</span>' ); ?>&nbsp;</p>
+							<div class="entry">
+								<?php the_content( __( 'Read the rest of this entry &rarr;', 'bp-default' ) ); ?>
 
-						<div class="alignleft"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'buddypress' ) . '</span> %title' ); ?></div>
-						<div class="alignright"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'buddypress' ) . '</span>' ); ?></div>
-					</div>
+								<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'bp-default' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
+							</div><!-- .entry -->
 
-				</div>
+							<p class="postmetadata"><?php the_tags( '<span class="tags">' . __( 'Tags: ', 'bp-default' ), ', ', '</span>' ); ?>&nbsp;</p>
 
-			<?php comments_template(); ?>
+							<div class="alignleft"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'bp-default' ) . '</span> %title' ); ?></div>
+							<div class="alignright"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'bp-default' ) . '</span>' ); ?></div>
+						</div><!-- .post-content -->
 
-			<?php endwhile; else: ?>
+					</div><!-- #post-the_ID() -->
 
-				<p><?php _e( 'Sorry, no posts matched your criteria.', 'buddypress' ); ?></p>
+					<?php comments_template(); ?>
 
-			<?php endif; ?>
+				<?php endwhile; else: ?>
 
-		</div>
+						<p><?php _e( 'Sorry, no posts matched your criteria.', 'bp-default' ); ?></p>
 
-		<?php do_action( 'bp_after_blog_single_post' ); ?>
+				<?php endif; ?>
 
-		</div><!-- .padder -->
-	</div><!-- #content -->
+				</div><!-- .page -->
+
+				<?php do_action( 'bp_after_blog_single_post' ); ?>
+
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
 	<?php get_sidebar(); ?>
 

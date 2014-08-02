@@ -1,3 +1,12 @@
+<?php
+/**
+ * BuddyPress - Users Groups Invitations
+ * 
+ * @package BuddyPress
+ * @subpackage BP Default
+ */
+?>
+
 <?php do_action( 'bp_before_group_invites_content' ); ?>
 
 <?php if ( bp_has_groups( 'type=invites&user_id=' . bp_loggedin_user_id() ) ) : ?>
@@ -9,9 +18,9 @@
 			<li>
 				<div class="item-avatar">
 					<a href="<?php bp_group_permalink(); ?>"><?php bp_group_avatar( 'type=thumb&width=50&height=50' ); ?></a>
-				</div>
+				</div><!--.item-avatar -->
 
-				<h4><a href="<?php bp_group_permalink(); ?>"><?php bp_group_name(); ?></a><span class="small"> - <?php printf( _n( '1 member', '%d members', bp_get_group_total_members( false ), 'buddypress' )  ); ?></span></h4>
+				<h4><a href="<?php bp_group_permalink(); ?>"><?php bp_group_name(); ?></a><span class="small"> - <?php printf( _n( '1 member', '%d members', bp_get_group_total_members( false ), 'bp-default' )  ); ?></span></h4>
 
 				<p class="desc">
 					<?php bp_group_description_excerpt(); ?>
@@ -20,22 +29,24 @@
 				<?php do_action( 'bp_group_invites_item' ); ?>
 
 				<div class="action">
-					<a class="button accept" href="<?php bp_group_accept_invite_link(); ?>"><?php _e( 'Accept', 'buddypress' ); ?></a> &nbsp;
-					<a class="button reject confirm" href="<?php bp_group_reject_invite_link(); ?>"><?php _e( 'Reject', 'buddypress' ); ?></a>
+					<a class="button accept" href="<?php bp_group_accept_invite_link(); ?>"><?php _e( 'Accept', 'bp-default' ); ?></a> &nbsp;
+					<a class="button reject confirm" href="<?php bp_group_reject_invite_link(); ?>"><?php _e( 'Reject', 'bp-default' ); ?></a>
 
 					<?php do_action( 'bp_group_invites_item_action' ); ?>
 
-				</div>
-			</li>
+				</div><!-- .action -->
 
+			</li>
 		<?php endwhile; ?>
-	</ul>
+
+	</ul><!-- #group-list -->
+
 
 <?php else: ?>
 
 	<div id="message" class="info" role="main">
-		<p><?php _e( 'You have no outstanding group invites.', 'buddypress' ); ?></p>
-	</div>
+		<p><?php _e( 'You have no outstanding group invites.', 'bp-default' ); ?></p>
+	</div><!-- #message -->
 
 <?php endif;?>
 

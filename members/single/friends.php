@@ -1,12 +1,10 @@
 <?php
-
 /**
  * BuddyPress - Users Friends
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
@@ -17,11 +15,11 @@
 
 			<li id="members-order-select" class="last filter">
 
-				<label for="members-friends"><?php _e( 'Order By:', 'buddypress' ); ?></label>
+				<label for="members-friends"><?php _e( 'Order By:', 'bp-default' ); ?></label>
 				<select id="members-friends">
-					<option value="active"><?php _e( 'Last Active', 'buddypress' ); ?></option>
-					<option value="newest"><?php _e( 'Newest Registered', 'buddypress' ); ?></option>
-					<option value="alphabetical"><?php _e( 'Alphabetical', 'buddypress' ); ?></option>
+					<option value="active"><?php _e( 'Last Active', 'bp-default' ); ?></option>
+					<option value="newest"><?php _e( 'Newest Registered', 'bp-default' ); ?></option>
+					<option value="alphabetical"><?php _e( 'Alphabetical', 'bp-default' ); ?></option>
 
 					<?php do_action( 'bp_member_friends_order_options' ); ?>
 
@@ -31,7 +29,7 @@
 		<?php endif; ?>
 
 	</ul>
-</div>
+</div><!-- .item-list-tabs -->
 
 <?php
 

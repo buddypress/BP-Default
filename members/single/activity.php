@@ -1,12 +1,11 @@
 <?php
-
 /**
  * BuddyPress - Users Activity
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default Theme
+ * @since BuddyPress 2.1.0
  */
-
 ?>
 
 <div class="item-list-tabs no-ajax" id="subnav" role="navigation">
@@ -15,24 +14,24 @@
 		<?php bp_get_options_nav(); ?>
 
 		<li id="activity-filter-select" class="last">
-			<label for="activity-filter-by"><?php _e( 'Show:', 'buddypress' ); ?></label>
+			<label for="activity-filter-by"><?php _e( 'Show:', 'bp-default' ); ?></label>
 			<select id="activity-filter-by">
-				<option value="-1"><?php _e( '&mdash; Everything &mdash;', 'buddypress' ); ?></option>
-				<option value="activity_update"><?php _e( 'Updates', 'buddypress' ); ?></option>
+				<option value="-1"><?php _e( '&mdash; Everything &mdash;', 'bp-default' ); ?></option>
+				<option value="activity_update"><?php _e( 'Updates', 'bp-default' ); ?></option>
 
 				<?php
 				if ( !bp_is_current_action( 'groups' ) ) :
 					if ( bp_is_active( 'blogs' ) ) : ?>
 
-						<option value="new_blog_post"><?php _e( 'Posts', 'buddypress' ); ?></option>
-						<option value="new_blog_comment"><?php _e( 'Comments', 'buddypress' ); ?></option>
+						<option value="new_blog_post"><?php _e( 'Posts', 'bp-default' ); ?></option>
+						<option value="new_blog_comment"><?php _e( 'Comments', 'bp-default' ); ?></option>
 
 					<?php
 					endif;
 
 					if ( bp_is_active( 'friends' ) ) : ?>
 
-						<option value="friendship_accepted,friendship_created"><?php _e( 'Friendships', 'buddypress' ); ?></option>
+						<option value="friendship_accepted,friendship_created"><?php _e( 'Friendships', 'bp-default' ); ?></option>
 
 					<?php endif;
 
@@ -40,15 +39,15 @@
 
 				if ( bp_is_active( 'forums' ) ) : ?>
 
-					<option value="new_forum_topic"><?php _e( 'Forum Topics', 'buddypress' ); ?></option>
-					<option value="new_forum_post"><?php _e( 'Forum Replies', 'buddypress' ); ?></option>
+					<option value="new_forum_topic"><?php _e( 'Forum Topics', 'bp-default' ); ?></option>
+					<option value="new_forum_post"><?php _e( 'Forum Replies', 'bp-default' ); ?></option>
 
 				<?php endif;
 
 				if ( bp_is_active( 'groups' ) ) : ?>
 
-					<option value="created_group"><?php _e( 'New Groups', 'buddypress' ); ?></option>
-					<option value="joined_group"><?php _e( 'Group Memberships', 'buddypress' ); ?></option>
+					<option value="created_group"><?php _e( 'New Groups', 'bp-default' ); ?></option>
+					<option value="joined_group"><?php _e( 'Group Memberships', 'bp-default' ); ?></option>
 
 				<?php endif;
 
@@ -56,6 +55,7 @@
 
 			</select>
 		</li>
+
 	</ul>
 </div><!-- .item-list-tabs -->
 

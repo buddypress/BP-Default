@@ -6,44 +6,43 @@
  *
  * @package BuddyPress
  * @subpackage BP_Default
- * @since BuddyPress (1.5)
  */
 
 get_header(); ?>
 
-	<div id="content">
-		<div class="padder one-column">
+		<div id="content">
+			<div class="padder one-column">
 
-		<?php do_action( 'bp_before_blog_page' ); ?>
+			<?php do_action( 'bp_before_blog_page' ); ?>
 
-		<div class="page" id="blog-page" role="main">
+			<div class="page" id="blog-page" role="main">
 
-			<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
+				<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 
-				<h2 class="pagetitle"><?php the_title(); ?></h2>
+					<h2 class="pagetitle"><?php the_title(); ?></h2>
 
-				<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+					<div id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
-					<div class="entry">
+						<div class="entry">
 
-						<?php the_content( __( '<p class="serif">Read the rest of this page &rarr;</p>', 'buddypress' ) ); ?>
+							<?php the_content( __( '<p class="serif">Read the rest of this page &rarr;</p>', 'bp-default' ) ); ?>
 
-						<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'buddypress' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
-						<?php edit_post_link( __( 'Edit this page.', 'buddypress' ), '<p class="edit-link">', '</p>'); ?>
+							<?php wp_link_pages( array( 'before' => '<div class="page-link"><p>' . __( 'Pages: ', 'bp-default' ), 'after' => '</p></div>', 'next_or_number' => 'number' ) ); ?>
+							<?php edit_post_link( __( 'Edit this page.', 'bp-default' ), '<p class="edit-link">', '</p>'); ?>
 
-					</div>
+						</div><!-- .entry -->
 
-				</div>
+					</div><!-- #post-the_ID() -->
 
-			<?php comments_template(); ?>
+				<?php comments_template(); ?>
 
-			<?php endwhile; endif; ?>
+				<?php endwhile; endif; ?>
 
-		</div><!-- .page -->
+			</div><!-- .page -->
 
-		<?php do_action( 'bp_after_blog_page' ); ?>
+			<?php do_action( 'bp_after_blog_page' ); ?>
 
-		</div><!-- .padder -->
-	</div><!-- #content -->
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
 <?php get_footer(); ?>

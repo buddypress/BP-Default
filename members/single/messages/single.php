@@ -1,3 +1,12 @@
+<?php
+/**
+ * BuddyPress - Users Single Message Screen
+ * 
+ * @package BuddyPress
+ * @subpackage BP Default
+ */
+?>
+
 <div id="message-thread" role="main">
 
 	<?php do_action( 'bp_before_message_thread_content' ); ?>
@@ -11,17 +20,17 @@
 
 				<?php if ( !bp_get_the_thread_recipients() ) : ?>
 
-					<?php _e( 'You are alone in this conversation.', 'buddypress' ); ?>
+					<?php _e( 'You are alone in this conversation.', 'bp-default' ); ?>
 
 				<?php else : ?>
 
-					<?php printf( __( 'Conversation between %s and you.', 'buddypress' ), bp_get_the_thread_recipients() ); ?>
+					<?php printf( __( 'Conversation between %s and you.', 'bp-default' ), bp_get_the_thread_recipients() ); ?>
 
 				<?php endif; ?>
 
 			</span>
 
-			<a class="button confirm" href="<?php bp_the_thread_delete_link(); ?>" title="<?php esc_attr_e( "Delete Message", "buddypress" ); ?>"><?php _e( 'Delete', 'buddypress' ); ?></a> &nbsp;
+			<a class="button confirm" href="<?php bp_the_thread_delete_link(); ?>" title="<?php esc_attr_e( "Delete Message", "bp-default" ); ?>"><?php _e( 'Delete', 'bp-default' ); ?></a> &nbsp;
 		</p>
 
 		<?php do_action( 'bp_before_message_thread_list' ); ?>
@@ -72,8 +81,8 @@
 					<div class="avatar-box">
 						<?php bp_loggedin_user_avatar( 'type=thumb&height=30&width=30' ); ?>
 
-						<strong><?php _e( 'Send a Reply', 'buddypress' ); ?></strong>
-					</div>
+						<strong><?php _e( 'Send a Reply', 'bp-default' ); ?></strong>
+					</div><!-- .avatar-box -->
 
 					<?php do_action( 'bp_after_message_meta' ); ?>
 
@@ -88,8 +97,8 @@
 					<?php do_action( 'bp_after_message_reply_box' ); ?>
 
 					<div class="submit">
-						<input type="submit" name="send" value="<?php esc_attr_e( 'Send Reply', 'buddypress' ); ?>" id="send_reply_button"/>
-					</div>
+						<input type="submit" name="send" value="<?php esc_attr_e( 'Send Reply', 'bp-default' ); ?>" id="send_reply_button"/>
+					</div><!-- .submit -->
 
 					<input type="hidden" id="thread_id" name="thread_id" value="<?php bp_the_thread_id(); ?>" />
 					<input type="hidden" id="messages_order" name="messages_order" value="<?php bp_thread_messages_order(); ?>" />
@@ -107,4 +116,4 @@
 
 	<?php do_action( 'bp_after_message_thread_content' ); ?>
 
-</div>
+</div><!-- #message-thread -->

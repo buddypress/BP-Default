@@ -1,29 +1,31 @@
 <?php
-/*
-Template Name: Links
-*/
-?>
+/**
+ * Template Name: Links
+ *
+ * @package BuddyPress
+ * @subpackage BP_Default
+ */
 
-<?php get_header(); ?>
+get_header(); ?>
 
-	<div id="content">
-		<div class="padder">
+		<div id="content">
+			<div class="padder">
 
-		<?php do_action( 'bp_before_blog_links' ); ?>
+			<?php do_action( 'bp_before_blog_links' ); ?>
 
-		<div class="page" id="blog-latest" role="main">
+				<div class="page" id="blog-latest" role="main">
 
-			<h2 class="pagetitle"><?php _e( 'Links', 'buddypress' ); ?></h2>
+					<h2 class="pagetitle"><?php _e( 'Links', 'bp-default' ); ?></h2>
 
-			<ul id="links-list">
-				<?php wp_list_bookmarks(); ?>
-			</ul>
+					<ul id="links-list">
+						<?php wp_list_bookmarks(); ?>
+					</ul>
 
-		</div>
+				</div><!-- .page -->
 
-		<?php do_action( 'bp_after_blog_links' ); ?>
+			<?php do_action( 'bp_after_blog_links' ); ?>
 
-		</div>
-	</div>
+			</div><!-- .padder -->
+		</div><!-- #content -->
 
 <?php get_footer(); ?>

@@ -1,3 +1,12 @@
+<?php
+/**
+ * BuddyPress - Users Profile Loop
+ * 
+ * @package BuddyPress
+ * @subpackage BP Default
+ */
+?>
+
 <?php do_action( 'bp_before_profile_loop_content' ); ?>
 
 <?php if ( bp_has_profile() ) : ?>
@@ -32,8 +41,8 @@
 
 					<?php endwhile; ?>
 
-				</table>
-			</div>
+				</table><!-- .profile-fields -->
+			</div><!-- .bp-widget -->
 
 			<?php do_action( 'bp_after_profile_field_content' ); ?>
 

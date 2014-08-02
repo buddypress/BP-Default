@@ -1,14 +1,12 @@
 <?php
-
 /**
  * BuddyPress - Forums Loop
  *
  * Querystring is set via AJAX in _inc/ajax.php - bp_dtheme_object_filter()
  *
  * @package BuddyPress
- * @subpackage bp-default
+ * @subpackage BP Default
  */
-
 ?>
 
 <?php do_action( 'bp_before_forums_loop' ); ?>
@@ -18,23 +16,20 @@
 	<div id="pag-top" class="pagination">
 
 		<div class="pag-count" id="topic-count-top">
-
 			<?php bp_forum_pagination_count(); ?>
-
-		</div>
+		</div><!-- .pag-count -->
 
 		<div class="pagination-links" id="topic-pag-top">
-
 			<?php bp_forum_pagination(); ?>
+		</div><!-- .pagination-links -->
 
-		</div>
-
-	</div>
+	</div><!-- #pag-top -->
 
 	<?php do_action( 'bp_before_directory_forums_list' ); ?>
 
 	<table class="forum">
 		<thead>
+
 			<tr>
 				<th id="th-title"><?php _e( 'Topic', 'buddypress' ); ?></th>
 				<th id="th-postcount"><?php _e( 'Posts', 'buddypress' ); ?></th>
@@ -100,7 +95,8 @@
 			<?php endwhile; ?>
 
 		</tbody>
-	</table>
+
+	</table><!-- .forum -->
 
 	<?php do_action( 'bp_after_directory_forums_list' ); ?>
 
@@ -108,19 +104,19 @@
 
 		<div class="pag-count" id="topic-count-bottom">
 			<?php bp_forum_pagination_count(); ?>
-		</div>
+		</div><!-- .pag-count -->
 
 		<div class="pagination-links" id="topic-pag-bottom">
 			<?php bp_forum_pagination(); ?>
-		</div>
+		</div><!-- .pagination-links -->
 
-	</div>
+	</div><!-- #pag-bottom -->
 
 <?php else: ?>
 
 	<div id="message" class="info">
 		<p><?php _e( 'Sorry, there were no forum topics found.', 'buddypress' ); ?></p>
-	</div>
+	</div><!-- #message -->
 
 <?php endif; ?>
 
