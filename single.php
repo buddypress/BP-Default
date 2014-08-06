@@ -25,7 +25,7 @@ get_header(); ?>
 							<?php if ( function_exists( 'bp_is_active' ) ) { ?>
 								<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), bp_core_get_userlink( $post->post_author ) ); ?>
 							<?php } else { ?>
-								<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), the_author_posts_link() ); ?>		
+								<?php printf( _x( 'by %s', 'Post written by...', 'bp-default' ), the_author_posts_link() ); ?>
 							<?php } ?>
 						</div><!-- .author-box -->
 
@@ -47,16 +47,14 @@ get_header(); ?>
 
 							<div class="alignleft"><?php previous_post_link( '%link', '<span class="meta-nav">' . _x( '&larr;', 'Previous post link', 'bp-default' ) . '</span> %title' ); ?></div>
 							<div class="alignright"><?php next_post_link( '%link', '%title <span class="meta-nav">' . _x( '&rarr;', 'Next post link', 'bp-default' ) . '</span>' ); ?></div>
-						</div><!-- .post-content -->
 
+						</div><!-- .post-content -->
 					</div><!-- #post-the_ID() -->
 
 					<?php comments_template(); ?>
 
 				<?php endwhile; else: ?>
-
 						<p><?php _e( 'Sorry, no posts matched your criteria.', 'bp-default' ); ?></p>
-
 				<?php endif; ?>
 
 				</div><!-- .page -->
