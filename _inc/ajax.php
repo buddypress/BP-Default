@@ -10,7 +10,7 @@
  *
  * @package BuddyPress
  * @since BuddyPress (1.2)
- * @subpackage BP-Default
+ * @subpackage BP Default
  */
 
 // Exit if accessed directly

@@ -3,7 +3,7 @@
  * The Sidebar containing the primary widget area.
  *
  * @package BuddyPress
- * @subpackage BP_Default
+ * @subpackage BP Default
  */
 ?>
 
