@@ -11,6 +11,7 @@ get_header( 'buddypress' ); ?>
 		<?php do_action( 'bp_before_directory_activity_page' ); ?>
 
 		<div id="content">
+		
 			<div class="padder">
 
 				<?php do_action( 'bp_before_directory_activity' ); ?>
@@ -137,8 +138,11 @@ get_header( 'buddypress' ); ?>
 								<?php do_action( 'bp_activity_filter_options' ); ?>
 
 							</select>
+
 						</li>
+
 					</ul>
+
 				</div><!-- .item-list-tabs -->
 
 				<?php do_action( 'bp_before_directory_activity_list' ); ?>
@@ -158,10 +162,11 @@ get_header( 'buddypress' ); ?>
 				<?php do_action( 'bp_after_directory_activity' ); ?>
 
 			</div><!-- .padder -->
+
 		</div><!-- #content -->
 
 	<?php do_action( 'bp_after_directory_activity_page' ); ?>
 
-	<?php get_sidebar( 'buddypress' ); ?>
+	<?php get_sidebar( 'bp-default' ); ?>
 
-<?php get_footer( 'buddypress' ); ?>
+<?php get_footer( 'bp-default' ); ?>

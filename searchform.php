@@ -3,7 +3,7 @@
  * The Search Form.
  *
  * @package BuddyPress
- * @subpackage BP Default
+ * @subpackage BP_Default
  */
 ?>
 
@@ -15,6 +15,6 @@
 
 	<?php do_action( 'bp_blog_search_form' ); ?>
 
-</form><!-- #searchform -->
+</form><!-- #searchform
 
 <?php do_action( 'bp_after_blog_search_form' ); ?>

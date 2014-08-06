@@ -26,15 +26,6 @@
  * @subpackage BP Default
  * @since BuddyPress (1.2)
  */
- 
-/**
- * Set the content width based on the theme's design and stylesheet.
- *
- * Used to set the width of images and content. Should be equal to the width the theme
- * is designed for, generally via the style.css stylesheet.
- */
-if ( ! isset( $content_width ) )
-	$content_width = 591;
 
 if ( ! function_exists( 'bp_dtheme_setup' ) ) :
 /**
@@ -50,6 +41,10 @@ if ( ! function_exists( 'bp_dtheme_setup' ) ) :
  * @since BuddyPress (1.5)
  */
 function bp_dtheme_setup() {
+
+	// Set the content width based on the theme's design and stylesheet.
+	global $content_width;
+	if( ! isset( $content_width ) ) $content_width = 591;
 
 	require( get_template_directory() . '/_inc/ajax.php' );
 
@@ -168,11 +163,12 @@ function bp_dtheme_enqueue_scripts() {
 	}
 
 	// Enqueue comment reply JS
-	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) 
-			wp_enqueue_script( 'comment-reply' );
+	if ( is_singular() && get_option( 'thread_comments' ) )
+		wp_enqueue_script( 'comment-reply' );
 }
 add_action( 'wp_enqueue_scripts', 'bp_dtheme_enqueue_scripts' );
 endif;
+
 
 if ( !function_exists( 'bp_dtheme_enqueue_styles' ) ) :
 /**
@@ -788,5 +784,7 @@ function bp_dtheme_remove_nojs_body_class() {
 }
 add_action( 'bp_before_header', 'bp_dtheme_remove_nojs_body_class' );
 
-// Custom template tags for this theme.
+/**
+* Template Tags
+*/
 require get_template_directory() . '/_inc/template-tags.php';

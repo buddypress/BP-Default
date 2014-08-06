@@ -6,43 +6,14 @@
  * @subpackage BP Default
  */
  
-if ( ! function_exists( 'bp_default_search_form' ) ) :
-/**
- * Replace regular search form with BuddyPress Search Form
- * if BuddyPress is activated.
- */
-function bp_default_search_form() {
-	// Regular search form if BuddyPress is not activated.
-	if ( ! function_exists( 'bp_is_active' ) ) { 
-		get_search_form();
-	} else { 
-	?>
-
-		<form action="<?php echo bp_search_form_action(); ?>" method="post" id="search-form">
-			<label for="search-terms" class="accessibly-hidden"><?php _e( 'Search for:', 'buddypress' ); ?></label>
-			<input type="text" id="search-terms" name="search-terms" value="<?php echo isset( $_REQUEST['s'] ) ? esc_attr( $_REQUEST['s'] ) : ''; ?>" />
-
-			<?php echo bp_search_form_type_select(); ?>
-
-			<input type="submit" name="search-submit" id="search-submit" value="<?php esc_attr_e( 'Search', 'buddypress' ); ?>" />
-			<?php wp_nonce_field( 'bp_search_form' ); ?>
-		</form><!-- #search-form -->
-
-	<?php }
-
-}
-endif;
- 
-if ( ! function_exists( 'bp_default_messages_login' ) ) :
+if ( ! function_exists( 'bp_default_messages_login()' ) ) :
 /**
  * Display BuddyPress Log in and Sitewide Messages
- * in sidebar if BuddyPress is activated.
  */
 function bp_default_messages_login() {
 	// Nothing there if BuddyPress is not activated.
-	if ( ! function_exists( 'bp_is_active' ) ) {
+	if ( !function_exists( 'bp_is_active' ) ) 
 		return;
-	} 
 	?>
 
 	<?php if ( is_user_logged_in() ) : ?>
@@ -73,7 +44,9 @@ function bp_default_messages_login() {
 		<?php if ( bp_get_signup_allowed() ) : ?>
 		
 			<p id="login-text">
+
 				<?php printf( __( 'Please <a href="%s" title="Create an account">create an account</a> to get started.', 'bp-default' ), site_url( bp_get_signup_slug() . '/' ) ) ?>
+
 			</p>
 
 		<?php endif; ?>
@@ -96,6 +69,6 @@ function bp_default_messages_login() {
 
 	<?php endif; ?>
 
-<?php 
+	<?php
 }
 endif;
