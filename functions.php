@@ -150,6 +150,21 @@ if ( !function_exists( 'bp_dtheme_enqueue_scripts' ) ) :
  */
 function bp_dtheme_enqueue_scripts() {
 
+	// Enqueue various scripts
+	wp_enqueue_script( 'bp-jquery-query' );
+	wp_enqueue_script( 'bp-jquery-cookie' );
+
+	// Enqueue scrollTo only on activity pages
+	if ( bp_is_activity_component() ) {
+		wp_enqueue_script( 'bp-jquery-scroll-to' );
+	}
+
+	// A similar check is done in BP_Core_Members_Widget, but due to a load order
+	// issue, we do it again here
+	if ( is_active_widget( false, false, 'bp_core_members_widget' ) && ! is_admin() && ! is_network_admin() ) {
+		wp_enqueue_script( 'bp-widget-members' );
+	}
+
 	// Enqueue the global JS - Ajax will not work without it
 	wp_enqueue_script( 'dtheme-ajax-js', get_template_directory_uri() . '/_inc/global.js', array( 'jquery' ), bp_get_version() );
 
