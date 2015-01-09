@@ -867,24 +867,23 @@ jq(document).ready( function() {
 
 	/** Profile Visibility Settings *********************************/
 	jq('.field-visibility-settings').hide();
-	jq('.visibility-toggle-link').on( 'click', function() {
-		var toggle_div = jq(this).parent();
+	jq( '.visibility-toggle-link' ).on( 'click', function( event ) {
+		event.preventDefault();
 
-		jq(toggle_div).fadeOut( 600, function(){
-			jq(toggle_div).siblings('.field-visibility-settings').slideDown(400);
-		});
-
-		return false;
+		jq( this ).parent().hide().addClass( 'field-visibility-settings-hide' )
+			.siblings( '.field-visibility-settings' ).show().addClass( 'field-visibility-settings-open' );
 	} );
 
-	jq('.field-visibility-settings-close').on( 'click', function() {
-		var settings_div = jq(this).parent();
+	jq( '.field-visibility-settings-close' ).on( 'click', function( event ) {
+		event.preventDefault();
 
-		jq(settings_div).slideUp( 400, function(){
-			jq(settings_div).siblings('.field-visibility-settings-toggle').fadeIn(800);
-		});
+		var settings_div = jq( this ).parent(),
+			vis_setting_text = settings_div.find( 'input:checked' ).parent().text();
 
-		return false;
+		settings_div.hide().removeClass( 'field-visibility-settings-open' )
+			.siblings( '.field-visibility-settings-toggle' )
+				.children( '.current-visibility-level' ).text( vis_setting_text ).end()
+			.show().removeClass( 'field-visibility-settings-hide' );
 	} );
 
 	jq("#profile-edit-form input:not(:submit), #profile-edit-form textarea, #profile-edit-form select, #signup_form input:not(:submit), #signup_form textarea, #signup_form select").change( function() {
