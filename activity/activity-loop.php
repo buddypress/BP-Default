@@ -38,7 +38,7 @@
 	<?php if ( bp_activity_has_more_items() ) : ?>
 
 		<li class="load-more">
-			<a href="#more"><?php _e( 'Load More', 'buddypress' ); ?></a>
+			<a href="#more"><?php _e( 'Load More', 'bp-classic' ); ?></a>
 		</li>
 
 	<?php endif; ?>
@@ -52,7 +52,7 @@
 <?php else : ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'buddypress' ); ?></p>
+		<p><?php _e( 'Sorry, there was no activity found. Please try a different filter.', 'bp-classic' ); ?></p>
 	</div>
 
 <?php endif; ?>

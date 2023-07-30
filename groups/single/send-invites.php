@@ -19,7 +19,7 @@
 		<div class="main-column">
 
 			<div id="message" class="info">
-				<p><?php _e('Select people to invite from your friends list.', 'buddypress'); ?></p>
+				<p><?php _e('Select people to invite from your friends list.', 'bp-classic'); ?></p>
 			</div>
 
 			<?php do_action( 'bp_before_group_send_invites_list' ); ?>
@@ -39,7 +39,7 @@
 						<?php do_action( 'bp_group_send_invites_item' ); ?>
 
 						<div class="action">
-							<a class="button remove" href="<?php bp_group_invite_user_remove_invite_url(); ?>" id="<?php bp_group_invite_item_id(); ?>"><?php _e( 'Remove Invite', 'buddypress' ); ?></a>
+							<a class="button remove" href="<?php bp_group_invite_user_remove_invite_url(); ?>" id="<?php bp_group_invite_item_id(); ?>"><?php _e( 'Remove Invite', 'bp-classic' ); ?></a>
 
 							<?php do_action( 'bp_group_send_invites_item_action' ); ?>
 						</div>
@@ -57,7 +57,7 @@
 		<div class="clear"></div>
 
 		<div class="submit">
-			<input type="submit" name="submit" id="submit" value="<?php esc_attr_e( 'Send Invites', 'buddypress' ); ?>" />
+			<input type="submit" name="submit" id="submit" value="<?php esc_attr_e( 'Send Invites', 'bp-classic' ); ?>" />
 		</div>
 
 		<?php wp_nonce_field( 'groups_send_invites', '_wpnonce_send_invites'); ?>
@@ -70,7 +70,7 @@
 <?php else : ?>
 
 	<div id="message" class="info" role="main">
-		<p><?php _e( 'Once you have built up friend connections you will be able to invite others to your group.', 'buddypress' ); ?></p>
+		<p><?php _e( 'Once you have built up friend connections you will be able to invite others to your group.', 'bp-classic' ); ?></p>
 	</div>
 
 <?php endif; ?>
