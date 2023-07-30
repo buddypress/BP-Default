@@ -2,9 +2,9 @@
 	<thead>
 		<tr>
 			<th class="icon"></th>
-			<th class="title"><?php _e( 'Notification', 'buddypress' ); ?></th>
-			<th class="date"><?php _e( 'Date Received', 'buddypress' ); ?></th>
-			<th class="actions"><?php _e( 'Actions',    'buddypress' ); ?></th>
+			<th class="title"><?php _e( 'Notification', 'bp-classic' ); ?></th>
+			<th class="date"><?php _e( 'Date Received', 'bp-classic' ); ?></th>
+			<th class="actions"><?php _e( 'Actions',    'bp-classic' ); ?></th>
 		</tr>
 	</thead>
 

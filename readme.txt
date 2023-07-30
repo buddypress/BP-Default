@@ -3,7 +3,7 @@ Clean and stylish, BuddyPress Default lets you build a social network straight o
 
 
 --- Installation ---
-The theme is bundled with BuddyPress. After activating the plugin, BuddyPress Default will be added to the "Appearance > Themes" menu in your WordPress admin area.
+The theme is bundled with BP Classic. After activating the plugin, BuddyPress Default will remain in the "Appearance > Themes" menu in your WordPress admin area if it was already there when this theme used to be bundled with the BuddyPress plugin.
 
 
 --- About BuddyPress ---
