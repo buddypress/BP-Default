@@ -13,23 +13,23 @@
 
 	<?php do_action( 'bp_before_group_details_admin' ); ?>
 
-	<label for="group-name"><?php _e( 'Group Name (required)', 'buddypress' ); ?></label>
+	<label for="group-name"><?php _e( 'Group Name (required)', 'bp-classic' ); ?></label>
 	<input type="text" name="group-name" id="group-name" value="<?php bp_group_name(); ?>" aria-required="true" />
 
-	<label for="group-desc"><?php _e( 'Group Description (required)', 'buddypress' ); ?></label>
+	<label for="group-desc"><?php _e( 'Group Description (required)', 'bp-classic' ); ?></label>
 	<textarea name="group-desc" id="group-desc" aria-required="true"><?php bp_group_description_editable(); ?></textarea>
 
 	<?php do_action( 'groups_custom_group_fields_editable' ); ?>
 
 	<p>
 		<label for="group-notifiy-members">
-			<input type="checkbox" name="group-notify-members" value="1" /> <?php _e( 'Notify group members of these changes via email', 'buddypress' ); ?>
+			<input type="checkbox" name="group-notify-members" value="1" /> <?php _e( 'Notify group members of these changes via email', 'bp-classic' ); ?>
 		</label>
 	</p>
 
 	<?php do_action( 'bp_after_group_details_admin' ); ?>
 
-	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'buddypress' ); ?>" id="save" name="save" /></p>
+	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'bp-classic' ); ?>" id="save" name="save" /></p>
 	<?php wp_nonce_field( 'groups_edit_group_details' ); ?>
 
 <?php endif; ?>
@@ -44,7 +44,7 @@
 		<?php if ( bp_forums_is_installed_correctly() ) : ?>
 
 			<div class="checkbox">
-				<label><input type="checkbox" name="group-show-forum" id="group-show-forum" value="1"<?php bp_group_show_forum_setting(); ?> /> <?php _e( 'Enable discussion forum', 'buddypress' ); ?></label>
+				<label><input type="checkbox" name="group-show-forum" id="group-show-forum" value="1"<?php bp_group_show_forum_setting(); ?> /> <?php _e( 'Enable discussion forum', 'bp-classic' ); ?></label>
 			</div>
 
 			<hr />
@@ -53,60 +53,60 @@
 
 	<?php endif; ?>
 
-	<h4><?php _e( 'Privacy Options', 'buddypress' ); ?></h4>
+	<h4><?php _e( 'Privacy Options', 'bp-classic' ); ?></h4>
 
 	<div class="radio">
 		<label>
 			<input type="radio" name="group-status" value="public"<?php bp_group_show_status_setting( 'public' ); ?> />
-			<strong><?php _e( 'This is a public group', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'This is a public group', 'bp-classic' ); ?></strong>
 			<ul>
-				<li><?php _e( 'Any site member can join this group.', 'buddypress' ); ?></li>
-				<li><?php _e( 'This group will be listed in the groups directory and in search results.', 'buddypress' ); ?></li>
-				<li><?php _e( 'Group content and activity will be visible to any site member.', 'buddypress' ); ?></li>
+				<li><?php _e( 'Any site member can join this group.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'This group will be listed in the groups directory and in search results.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'Group content and activity will be visible to any site member.', 'bp-classic' ); ?></li>
 			</ul>
 		</label>
 
 		<label>
 			<input type="radio" name="group-status" value="private"<?php bp_group_show_status_setting( 'private' ); ?> />
-			<strong><?php _e( 'This is a private group', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'This is a private group', 'bp-classic' ); ?></strong>
 			<ul>
-				<li><?php _e( 'Only users who request membership and are accepted can join the group.', 'buddypress' ); ?></li>
-				<li><?php _e( 'This group will be listed in the groups directory and in search results.', 'buddypress' ); ?></li>
-				<li><?php _e( 'Group content and activity will only be visible to members of the group.', 'buddypress' ); ?></li>
+				<li><?php _e( 'Only users who request membership and are accepted can join the group.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'This group will be listed in the groups directory and in search results.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'Group content and activity will only be visible to members of the group.', 'bp-classic' ); ?></li>
 			</ul>
 		</label>
 
 		<label>
 			<input type="radio" name="group-status" value="hidden"<?php bp_group_show_status_setting( 'hidden' ); ?> />
-			<strong><?php _e( 'This is a hidden group', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'This is a hidden group', 'bp-classic' ); ?></strong>
 			<ul>
-				<li><?php _e( 'Only users who are invited can join the group.', 'buddypress' ); ?></li>
-				<li><?php _e( 'This group will not be listed in the groups directory or search results.', 'buddypress' ); ?></li>
-				<li><?php _e( 'Group content and activity will only be visible to members of the group.', 'buddypress' ); ?></li>
+				<li><?php _e( 'Only users who are invited can join the group.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'This group will not be listed in the groups directory or search results.', 'bp-classic' ); ?></li>
+				<li><?php _e( 'Group content and activity will only be visible to members of the group.', 'bp-classic' ); ?></li>
 			</ul>
 		</label>
 	</div>
 
 	<hr />
 
-	<h4><?php _e( 'Group Invitations', 'buddypress' ); ?></h4>
+	<h4><?php _e( 'Group Invitations', 'bp-classic' ); ?></h4>
 
-	<p><?php _e( 'Which members of this group are allowed to invite others?', 'buddypress' ); ?></p>
+	<p><?php _e( 'Which members of this group are allowed to invite others?', 'bp-classic' ); ?></p>
 
 	<div class="radio">
 		<label>
 			<input type="radio" name="group-invite-status" value="members"<?php bp_group_show_invite_status_setting( 'members' ); ?> />
-			<strong><?php _e( 'All group members', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'All group members', 'bp-classic' ); ?></strong>
 		</label>
 
 		<label>
 			<input type="radio" name="group-invite-status" value="mods"<?php bp_group_show_invite_status_setting( 'mods' ); ?> />
-			<strong><?php _e( 'Group admins and mods only', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'Group admins and mods only', 'bp-classic' ); ?></strong>
 		</label>
 
 		<label>
 			<input type="radio" name="group-invite-status" value="admins"<?php bp_group_show_invite_status_setting( 'admins' ); ?> />
-			<strong><?php _e( 'Group admins only', 'buddypress' ); ?></strong>
+			<strong><?php _e( 'Group admins only', 'bp-classic' ); ?></strong>
 		</label>
  	</div>
 
@@ -114,7 +114,7 @@
 
 	<?php do_action( 'bp_after_group_settings_admin' ); ?>
 
-	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'buddypress' ); ?>" id="save" name="save" /></p>
+	<p><input type="submit" value="<?php esc_attr_e( 'Save Changes', 'bp-classic' ); ?>" id="save" name="save" /></p>
 	<?php wp_nonce_field( 'groups_edit_group_settings' ); ?>
 
 <?php endif; ?>
@@ -124,19 +124,19 @@
 
 	<?php if ( 'upload-image' == bp_get_avatar_admin_step() ) : ?>
 
-			<p><?php _e("Upload an image to use as an avatar for this group. The image will be shown on the main group page, and in search results.", 'buddypress'); ?></p>
+			<p><?php _e("Upload an image to use as an avatar for this group. The image will be shown on the main group page, and in search results.", 'bp-classic'); ?></p>
 
 			<p>
 				<input type="file" name="file" id="file" />
-				<input type="submit" name="upload" id="upload" value="<?php esc_attr_e( 'Upload Image', 'buddypress' ); ?>" />
+				<input type="submit" name="upload" id="upload" value="<?php esc_attr_e( 'Upload Image', 'bp-classic' ); ?>" />
 				<input type="hidden" name="action" id="action" value="bp_avatar_upload" />
 			</p>
 
 			<?php if ( bp_get_group_has_avatar() ) : ?>
 
-				<p><?php _e( "If you'd like to remove the existing avatar but not upload a new one, please use the delete avatar button.", 'buddypress' ); ?></p>
+				<p><?php _e( "If you'd like to remove the existing avatar but not upload a new one, please use the delete avatar button.", 'bp-classic' ); ?></p>
 
-				<?php bp_button( array( 'id' => 'delete_group_avatar', 'component' => 'groups', 'wrapper_id' => 'delete-group-avatar-button', 'link_class' => 'edit', 'link_href' => bp_get_group_avatar_delete_link(), 'link_title' => __( 'Delete Avatar', 'buddypress' ), 'link_text' => __( 'Delete Avatar', 'buddypress' ) ) ); ?>
+				<?php bp_button( array( 'id' => 'delete_group_avatar', 'component' => 'groups', 'wrapper_id' => 'delete-group-avatar-button', 'link_class' => 'edit', 'link_href' => bp_get_group_avatar_delete_link(), 'link_title' => __( 'Delete Avatar', 'bp-classic' ), 'link_text' => __( 'Delete Avatar', 'bp-classic' ) ) ); ?>
 
 			<?php endif; ?>
 
@@ -146,15 +146,15 @@
 
 	<?php if ( 'crop-image' == bp_get_avatar_admin_step() ) : ?>
 
-		<h3><?php _e( 'Crop Avatar', 'buddypress' ); ?></h3>
+		<h3><?php _e( 'Crop Avatar', 'bp-classic' ); ?></h3>
 
-		<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-to-crop" class="avatar" alt="<?php esc_attr_e( 'Avatar to crop', 'buddypress' ); ?>" />
+		<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-to-crop" class="avatar" alt="<?php esc_attr_e( 'Avatar to crop', 'bp-classic' ); ?>" />
 
 		<div id="avatar-crop-pane">
-			<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-crop-preview" class="avatar" alt="<?php esc_attr_e( 'Avatar preview', 'buddypress' ); ?>" />
+			<img src="<?php bp_avatar_to_crop(); ?>" id="avatar-crop-preview" class="avatar" alt="<?php esc_attr_e( 'Avatar preview', 'bp-classic' ); ?>" />
 		</div>
 
-		<input type="submit" name="avatar-crop-submit" id="avatar-crop-submit" value="<?php esc_attr_e( 'Crop Image', 'buddypress' ); ?>" />
+		<input type="submit" name="avatar-crop-submit" id="avatar-crop-submit" value="<?php esc_attr_e( 'Crop Image', 'bp-classic' ); ?>" />
 
 		<input type="hidden" name="image_src" id="image_src" value="<?php bp_avatar_to_crop_src(); ?>" />
 		<input type="hidden" id="x" name="x" />
@@ -174,7 +174,7 @@
 	<?php do_action( 'bp_before_group_manage_members_admin' ); ?>
 
 	<div class="bp-widget">
-		<h4><?php _e( 'Administrators', 'buddypress' ); ?></h4>
+		<h4><?php _e( 'Administrators', 'bp-classic' ); ?></h4>
 
 		<?php if ( bp_has_members( '&include='. bp_group_admin_ids() ) ) : ?>
 
@@ -182,12 +182,12 @@
 
 			<?php while ( bp_members() ) : bp_the_member(); ?>
 			<li>
-				<?php echo bp_core_fetch_avatar( array( 'item_id' => bp_get_member_user_id(), 'type' => 'thumb', 'width' => 30, 'height' => 30, 'alt' => sprintf( __( 'Profile picture of %s', 'buddypress' ), bp_get_member_name() ) ) ); ?>
+				<?php echo bp_core_fetch_avatar( array( 'item_id' => bp_get_member_user_id(), 'type' => 'thumb', 'width' => 30, 'height' => 30, 'alt' => sprintf( __( 'Profile picture of %s', 'bp-classic' ), bp_get_member_name() ) ) ); ?>
 				<h5>
 					<a href="<?php bp_member_permalink(); ?>"> <?php bp_member_name(); ?></a>
 					<?php if ( count( bp_group_admin_ids( false, 'array' ) ) > 1 ) : ?>
 					<span class="small">
-						<a class="button confirm admin-demote-to-member" href="<?php bp_group_member_demote_link( bp_get_member_user_id() ); ?>"><?php _e( 'Demote to Member', 'buddypress' ); ?></a>
+						<a class="button confirm admin-demote-to-member" href="<?php bp_group_member_demote_link( bp_get_member_user_id() ); ?>"><?php _e( 'Demote to Member', 'bp-classic' ); ?></a>
 					</span>
 					<?php endif; ?>
 				</h5>
@@ -202,19 +202,19 @@
 
 	<?php if ( bp_group_has_moderators() ) : ?>
 		<div class="bp-widget">
-			<h4><?php _e( 'Moderators', 'buddypress' ); ?></h4>
+			<h4><?php _e( 'Moderators', 'bp-classic' ); ?></h4>
 
 			<?php if ( bp_has_members( '&include=' . bp_group_mod_ids() ) ) : ?>
 				<ul id="mods-list" class="item-list single-line">
 
 					<?php while ( bp_members() ) : bp_the_member(); ?>
 					<li>
-						<?php echo bp_core_fetch_avatar( array( 'item_id' => bp_get_member_user_id(), 'type' => 'thumb', 'width' => 30, 'height' => 30, 'alt' => sprintf( __( 'Profile picture of %s', 'buddypress' ), bp_get_member_name() ) ) ); ?>
+						<?php echo bp_core_fetch_avatar( array( 'item_id' => bp_get_member_user_id(), 'type' => 'thumb', 'width' => 30, 'height' => 30, 'alt' => sprintf( __( 'Profile picture of %s', 'bp-classic' ), bp_get_member_name() ) ) ); ?>
 						<h5>
 							<a href="<?php bp_member_permalink(); ?>"> <?php bp_member_name(); ?></a>
 							<span class="small">
-								<a href="<?php bp_group_member_promote_admin_link( array( 'user_id' => bp_get_member_user_id() ) ); ?>" class="button confirm mod-promote-to-admin" title="<?php esc_attr_e( 'Promote to Admin', 'buddypress' ); ?>"><?php _e( 'Promote to Admin', 'buddypress' ); ?></a>
-								<a class="button confirm mod-demote-to-member" href="<?php bp_group_member_demote_link( bp_get_member_user_id() ); ?>"><?php _e( 'Demote to Member', 'buddypress' ); ?></a>
+								<a href="<?php bp_group_member_promote_admin_link( array( 'user_id' => bp_get_member_user_id() ) ); ?>" class="button confirm mod-promote-to-admin" title="<?php esc_attr_e( 'Promote to Admin', 'bp-classic' ); ?>"><?php _e( 'Promote to Admin', 'bp-classic' ); ?></a>
+								<a class="button confirm mod-demote-to-member" href="<?php bp_group_member_demote_link( bp_get_member_user_id() ); ?>"><?php _e( 'Demote to Member', 'bp-classic' ); ?></a>
 							</span>
 						</h5>
 					</li>
@@ -257,23 +257,23 @@
 						<h5>
 							<?php bp_group_member_link(); ?>
 
-							<?php if ( bp_get_group_member_is_banned() ) _e( '(banned)', 'buddypress'); ?>
+							<?php if ( bp_get_group_member_is_banned() ) _e( '(banned)', 'bp-classic'); ?>
 
 							<span class="small">
 
 							<?php if ( bp_get_group_member_is_banned() ) : ?>
 
-								<a href="<?php bp_group_member_unban_link(); ?>" class="button confirm member-unban" title="<?php esc_attr_e( 'Unban this member', 'buddypress' ); ?>"><?php _e( 'Remove Ban', 'buddypress' ); ?></a>
+								<a href="<?php bp_group_member_unban_link(); ?>" class="button confirm member-unban" title="<?php esc_attr_e( 'Unban this member', 'bp-classic' ); ?>"><?php _e( 'Remove Ban', 'bp-classic' ); ?></a>
 
 							<?php else : ?>
 
-								<a href="<?php bp_group_member_ban_link(); ?>" class="button confirm member-ban" title="<?php esc_attr_e( 'Kick and ban this member', 'buddypress' ); ?>"><?php _e( 'Kick &amp; Ban', 'buddypress' ); ?></a>
-								<a href="<?php bp_group_member_promote_mod_link(); ?>" class="button confirm member-promote-to-mod" title="<?php esc_attr_e( 'Promote to Mod', 'buddypress' ); ?>"><?php _e( 'Promote to Mod', 'buddypress' ); ?></a>
-								<a href="<?php bp_group_member_promote_admin_link(); ?>" class="button confirm member-promote-to-admin" title="<?php esc_attr_e( 'Promote to Admin', 'buddypress' ); ?>"><?php _e( 'Promote to Admin', 'buddypress' ); ?></a>
+								<a href="<?php bp_group_member_ban_link(); ?>" class="button confirm member-ban" title="<?php esc_attr_e( 'Kick and ban this member', 'bp-classic' ); ?>"><?php _e( 'Kick &amp; Ban', 'bp-classic' ); ?></a>
+								<a href="<?php bp_group_member_promote_mod_link(); ?>" class="button confirm member-promote-to-mod" title="<?php esc_attr_e( 'Promote to Mod', 'bp-classic' ); ?>"><?php _e( 'Promote to Mod', 'bp-classic' ); ?></a>
+								<a href="<?php bp_group_member_promote_admin_link(); ?>" class="button confirm member-promote-to-admin" title="<?php esc_attr_e( 'Promote to Admin', 'bp-classic' ); ?>"><?php _e( 'Promote to Admin', 'bp-classic' ); ?></a>
 
 							<?php endif; ?>
 
-								<a href="<?php bp_group_member_remove_link(); ?>" class="button confirm" title="<?php esc_attr_e( 'Remove this member', 'buddypress' ); ?>"><?php _e( 'Remove from group', 'buddypress' ); ?></a>
+								<a href="<?php bp_group_member_remove_link(); ?>" class="button confirm" title="<?php esc_attr_e( 'Remove this member', 'bp-classic' ); ?>"><?php _e( 'Remove from group', 'bp-classic' ); ?></a>
 
 								<?php do_action( 'bp_group_manage_members_admin_item' ); ?>
 
@@ -287,7 +287,7 @@
 		<?php else: ?>
 
 			<div id="message" class="info">
-				<p><?php _e( 'This group has no members.', 'buddypress' ); ?></p>
+				<p><?php _e( 'This group has no members.', 'bp-classic' ); ?></p>
 			</div>
 
 		<?php endif; ?>
@@ -317,9 +317,9 @@
 
 					<div class="action">
 
-						<?php bp_button( array( 'id' => 'group_membership_accept', 'component' => 'groups', 'wrapper_class' => 'accept', 'link_href' => bp_get_group_request_accept_link(), 'link_title' => __( 'Accept', 'buddypress' ), 'link_text' => __( 'Accept', 'buddypress' ) ) ); ?>
+						<?php bp_button( array( 'id' => 'group_membership_accept', 'component' => 'groups', 'wrapper_class' => 'accept', 'link_href' => bp_get_group_request_accept_link(), 'link_title' => __( 'Accept', 'bp-classic' ), 'link_text' => __( 'Accept', 'bp-classic' ) ) ); ?>
 
-						<?php bp_button( array( 'id' => 'group_membership_reject', 'component' => 'groups', 'wrapper_class' => 'reject', 'link_href' => bp_get_group_request_reject_link(), 'link_title' => __( 'Reject', 'buddypress' ), 'link_text' => __( 'Reject', 'buddypress' ) ) ); ?>
+						<?php bp_button( array( 'id' => 'group_membership_reject', 'component' => 'groups', 'wrapper_class' => 'reject', 'link_href' => bp_get_group_request_reject_link(), 'link_title' => __( 'Reject', 'bp-classic' ), 'link_text' => __( 'Reject', 'bp-classic' ) ) ); ?>
 
 						<?php do_action( 'bp_group_membership_requests_admin_item_action' ); ?>
 
@@ -332,7 +332,7 @@
 	<?php else: ?>
 
 		<div id="message" class="info">
-			<p><?php _e( 'There are no pending membership requests.', 'buddypress' ); ?></p>
+			<p><?php _e( 'There are no pending membership requests.', 'bp-classic' ); ?></p>
 		</div>
 
 	<?php endif; ?>
@@ -349,15 +349,15 @@
 	<?php do_action( 'bp_before_group_delete_admin' ); ?>
 
 	<div id="message" class="info">
-		<p><?php _e( 'WARNING: Deleting this group will completely remove ALL content associated with it. There is no way back, please be careful with this option.', 'buddypress' ); ?></p>
+		<p><?php _e( 'WARNING: Deleting this group will completely remove ALL content associated with it. There is no way back, please be careful with this option.', 'bp-classic' ); ?></p>
 	</div>
 
-	<label><input type="checkbox" name="delete-group-understand" id="delete-group-understand" value="1" onclick="if(this.checked) { document.getElementById('delete-group-button').disabled = ''; } else { document.getElementById('delete-group-button').disabled = 'disabled'; }" /> <?php _e( 'I understand the consequences of deleting this group.', 'buddypress' ); ?></label>
+	<label><input type="checkbox" name="delete-group-understand" id="delete-group-understand" value="1" onclick="if(this.checked) { document.getElementById('delete-group-button').disabled = ''; } else { document.getElementById('delete-group-button').disabled = 'disabled'; }" /> <?php _e( 'I understand the consequences of deleting this group.', 'bp-classic' ); ?></label>
 
 	<?php do_action( 'bp_after_group_delete_admin' ); ?>
 
 	<div class="submit">
-		<input type="submit" disabled="disabled" value="<?php esc_attr_e( 'Delete Group', 'buddypress' ); ?>" id="delete-group-button" name="delete-group-button" />
+		<input type="submit" disabled="disabled" value="<?php esc_attr_e( 'Delete Group', 'bp-classic' ); ?>" id="delete-group-button" name="delete-group-button" />
 	</div>
 
 	<?php wp_nonce_field( 'groups_delete_group' ); ?>
